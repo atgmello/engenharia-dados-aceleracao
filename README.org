@@ -1,4 +1,5 @@
 #+TITLE: Engenharia de Dados
+#+OPTIONS: toc:2
 
 * Abertura - Como trabalhar em um ambiente ágil e global
 A live começou com a apresentação da Everis, empresa de consultoria
@@ -51,7 +52,7 @@ gerenciar os seus arquivos entre as máquinas do seu cluster. Já o Yarn, Yet
 Another Resource Negotiator, é responsável por negociar recrusos computacionais
 para as suas tarefas de manipulação de dados.
 
-file:./figuras/hadoop_eco.png
+[[file:./figuras/hadoop_eco.png]]
 Créditos: https://dzone.com/articles/example-of-etl-application-using-apache-spark-and
 
 * Orquestrando ambientes de big data distruibuidos com Zookeeper, Yarn e Sqoop
