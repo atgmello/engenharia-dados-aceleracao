@@ -1,7 +1,15 @@
+:PROPERTIES:
+:TOC:      :include all :depth 2
+:END:
 #+TITLE: Engenharia de Dados
-#+OPTIONS: toc:2
+:CONTENTS:
+[[#27a6d9f2-95bf-4e50-91d4-80817310031f][Abertura - Como trabalhar em um ambiente ágil e global]]
+:END:
 
 * Abertura - Como trabalhar em um ambiente ágil e global
+:PROPERTIES:
+:ID:       27a6d9f2-95bf-4e50-91d4-80817310031f
+:END:
 A live começou com a apresentação da Everis, empresa de consultoria
 multinacional que estará ministrando as palestras técnicas sobre o assunto de
 Big Data. Entraram em detalhes da filosofia e cultura da empresa, bem como
@@ -67,10 +75,12 @@ Para o desenvolvedor, o Zookeeper é completamente transparente.
 É mais aparente para quem vai trabalhar com infra.
 
 ** Sqoop
-Movimenta dados entre banco de dados relacional e HDFS.
-Realiza a leitura linha a linha de tabelas para arquivos (pode pecar na performance).
-Permite importar dados e metadados de bancos de dado relacionais direto para o Hive.
-Utiliza MapReduce por debaixo dos panos: processamento paralelo e tolerante a falha. Contudo MapReduce já não é mais o motor mais rápido disponível (alternativas: Spark, Flink).
+Movimenta dados entre banco de dados relacional e HDFS.  Realiza a leitura linha
+a linha de tabelas para arquivos (pode pecar na performance).  Permite importar
+dados e metadados de bancos de dado relacionais direto para o Hive.  Utiliza
+MapReduce por debaixo dos panos: processamento paralelo e tolerante a falha.
+Contudo MapReduce já não é mais o motor mais rápido disponível (alternativas:
+Spark, Flink).
 
 #+BEGIN_SRC bash
 sqoop import \
@@ -123,10 +133,164 @@ sqoop import \
 
 ** Recursos
 http://dontpad.com/aceleracaoeveris
-
 https://drive.google.com/drive/folders/1xaft6H3R3_UvA6-BFHuCvHuWczf6xwqG?usp=sharing
 
 * Como realizar consultas de maneira simples no ambiente complexo de Big Data com HIVE e Impala
+Hive e Impala são frontends que possibilitam uma conexão facilitada aos dados no HDFS.
+
+** Hive
+Hive oferece a linguagem HQL (Hive Query Langue), uma abstração de alto nível ao MapReduce, com linguagem similar ao conhecido SQL.
+
+Três possíveis engines MapReduce, Spark, Tez.
+** Impala
+Engine MPP (Massive Parallel Processing). Também uma linguagem similar a SQL (Impala SQL).
+
+Impala não salva os resultados intermediários em disco. Isso acelera e muito o
+processamento em comparação com o Hive.
+
+** Diferenças
+Casos de uso:
+Realtime -> Impala
+Batch -> Hive
+
+Impala não salva intermediários em disco, fica tudo em memória. Portanto seu
+consumo de memória é muito maior, o que pode ser um limitante dependendo do tipo
+de queries executadas.
+
+** Detalhes HQL
+CREATE EXTERNAL vs MANAGED TABLE
+External - Quando a tablea é apagada, os dados permanecem
+Managed - Apaga os dados quando a tabela é deletada
+
+** Formatos de arquivos
+*** Parquet
+Formato Colunar
+*** ORC
+Formato Colunar
+*** Avro
+Formato de Linhas
+
+** Particionamento
+Determina como os dados são armazenados.
+
+Pouco particionamento: não faz bom uso da capacidade de paralelismo dos dados
+Muito particionamento: pode sobrecarregar o namenode, impactando na performance
+
+** Prática
+*** Hive
+Utilitários
+#+BEGIN_SRC sql
+set hive.cli.print.header=true;
+set hive.cli.print.current.db=true;
+#+END_SRC
+
+Criar tabela em cima de pasta do HDFS.
+#+BEGIN_SRC sql
+CREATE EXTERNAL TABLE TB_EXT_EMPLOYEE(
+id STRING,
+groups STRING,
+age STRING,
+active_lifestyle STRING,
+salary STRING)
+ROW FORMAT DELIMITED FIELDS
+TERMINATED BY '\;'
+STORED AS TEXTFILE
+LOCATION '/user/hive/warehouse/external/tabelas/employee'
+tblproperties ("skip.header.line.count"="1");
+#+END_SRC
+
+Enviar dados para a LOCATION especificada pela tabela acima.
+#+BEGIN_SRC sql
+hdfs dfs -put /home/everis/employee.txt /user/hive/warehouse/external/tabelas/employee
+#+END_SRC
+
+Melhorar tabela acima com os tipos apropriados.
+#+BEGIN_SRC sql
+CREATE TABLE TB_EMPLOYEE(
+id INT,
+groups STRING,
+age INT,
+active_lifestyle STRING,
+salary DOUBLE)
+PARTITIONED BY (dt_processamento STRING)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY '|'
+STORED AS PARQUET TBLPROPERTIES ("parquet.compression"="SNAPPY");
+
+insert into table TB_EMPLOYEE partition (dt_processamento='20201118') 
+select
+id,
+groups,
+age,
+active_lifestyle,
+salary
+from TB_EXT_EMPLOYEE;
+#+END_SRC
+
+Criar tabela em cima de pasta no HDFS (segundo exemplo)
+#+BEGIN_SRC sql
+create external table localidade(
+street string,
+city string,
+zip string,
+state string,
+beds string,
+baths string,
+sq_ft string,
+type string,
+sale_date string,
+price string,
+latitude string,
+longitude string)
+PARTITIONED BY (particao STRING)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ","
+STORED AS TEXTFILE
+location '/user/hive/warehouse/external/tabelas/localidade'
+tblproperties ("skip.header.line.count"="1");
+#+END_SRC
+
+Alternativamente, criar tabela com base em arquivo.
+Hive envia dados para o HDFS automaticamente.
+#+BEGIN_SRC sql
+load data local inpath '/home/everis/base_localidade.csv' 
+into table teste.localidade partition (particao='2021-01-21');
+#+END_SRC
+
+**** Join
+https://cwiki.apache.org/confluence/display/Hive/LanguageManual+Joins
+
+** Dia-a-dia
+/home/cloudera/hive/script.sh
+#+BEGIN_SRC shell
+#!/bin/bash
+
+dt_processamento=$(date '+%Y-%m-%d')
+path_file='/home/cloudera/hive/datasets/employee.txt'
+table=beca.ext_p_employee
+load=/home/cloudera/hive/load.hql
+
+hive -hiveconf dt_processamento=${dt_processamento} -hiveconf table=${table} -hiveconf path_file=${path_file} -f $load 2>> log.txt
+
+hive_status=$?
+
+if [ ${hive_status} -eq 0 ];
+then
+        echo -e "\nScript executado com sucesso"
+else
+        echo -e "\nHouve um erro na ingestao do arquivo "
+
+impala-shell -q 'INVALIDATE METADATA beca.ext_p_employee;'
+
+fi
+#+END_SRC
+
+/home/cloudera/hive/load.hql
+#+BEGIN_SRC shell
+LOAD DATA LOCAL INPATH '${hiveconf:path_file}' INTO TABLE ${hiveconf:table} PARTITION(dt_processamento='${hiveconf:dt_processamento}');
+#+END_SRC
+
+** Recursos
+https://gitlab.com/vmb1/hive
+
 * Explorando o poder do NoSQL com Cassandra e Hbase
 * Intensivo de Python: O mínimo que você precisa saber
 * Trabalhando com serviços de mensageria real time com Python e Kafka na prática
