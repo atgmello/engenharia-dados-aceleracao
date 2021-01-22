@@ -70,10 +70,10 @@ gerenciar os seus arquivos entre as máquinas do seu cluster. Já o Yarn, Yet
 Another Resource Negotiator, é responsável por negociar recrusos computacionais
 para as suas tarefas de manipulação de dados.
 
-#+html: <p align="center"> <figure>
+#+html: <figure align="center">
 #+html: <img src="figuras/hadoop_eco.png" />
-#+html: <figcaption>Ecossistema Hadoop. Créditos: <a href="https://dzone.com/articles/example-of-etl-application-using-apache-spark-and">bitsinglass</a> </figcaption>
-#+html: </figure> </p>
+#+html: <figcaption>Ecossistema Hadoop. Créditos: <a href="https://dzone.com/articles/example-of-etl-application-using-apache-spark-and">dzone</a> </figcaption>
+#+html: </figure>
 
 * Orquestrando ambientes de big data distruibuidos com Zookeeper, Yarn e Sqoop
 ** Zookeepr
