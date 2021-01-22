@@ -3,13 +3,10 @@
 :END:
 #+TITLE: Engenharia de Dados
 :CONTENTS:
-[[#27a6d9f2-95bf-4e50-91d4-80817310031f][Abertura - Como trabalhar em um ambiente ágil e global]]
+[[#abertura---como-trabalhar-em-um-ambiente-agil-e-global][Abertura - Como trabalhar em um ambiente ágil e global]]
 :END:
 
 * Abertura - Como trabalhar em um ambiente ágil e global
-:PROPERTIES:
-:ID:       27a6d9f2-95bf-4e50-91d4-80817310031f
-:END:
 A live começou com a apresentação da Everis, empresa de consultoria
 multinacional que estará ministrando as palestras técnicas sobre o assunto de
 Big Data. Entraram em detalhes da filosofia e cultura da empresa, bem como
