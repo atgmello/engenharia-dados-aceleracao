@@ -25,9 +25,10 @@ de multipla escolha sobre Python e lógica de programação, além de um coding
 test.
 
 Serão 14 dias de treinamento passando pelas linguagens de programação Python e
-Scala. Também serão dadas noções do _core_ Hadoop com HDFS, Yarn, além de outras
-ferramentas do ecossistema como MapReduce, Sqoop, Hive, Zookeeper e Spark.
-Também serão cobertas noções de bancos de dados NoSQL como Cassandra e HBase.
+Scala além de ferramentas fundamentais para Big Data. Serão dadas noções do
+_core_ Hadoop com HDFS, Yarn, além de outras ferramentas do ecossistema como
+MapReduce, Sqoop, Hive, Zookeeper e Spark.  Também serão cobertas noções de
+bancos de dados NoSQL como Cassandra e HBase.
 
 Foi ressaltada a importância da mudança do paradigma Waterfall para o paradigma
 Agile em projetos de Engenharia de Dados.  Planejamento e execução de Sprints,
@@ -38,9 +39,8 @@ framework.
 
 #+html: <p align="center"> <figure>
 #+html: <img src="figuras/BIG_AgileProcess-V2.png" />
-#+html: <figcaption>Framwork Agile. Créditos: https://bitsinglass.com/agile-methodologies-enhance-appian-delivery-part-1/</figcaption>
+#+html: <figcaption>Framwork Agile. Créditos: <a href="https://bitsinglass.com/agile-methodologies-enhance-appian-delivery-part-1/">bitsinglass</a> </figcaption>
 #+html: </figure> </p>
-
 
 Agile requer um processo de comunicação forte, com transparência, confiânça e
 união entre os colaboradores das Squads. No geral, focaram no fato de que
@@ -70,8 +70,10 @@ gerenciar os seus arquivos entre as máquinas do seu cluster. Já o Yarn, Yet
 Another Resource Negotiator, é responsável por negociar recrusos computacionais
 para as suas tarefas de manipulação de dados.
 
-[[file:./figuras/hadoop_eco.png]]
-Créditos: https://dzone.com/articles/example-of-etl-application-using-apache-spark-and
+#+html: <p align="center"> <figure>
+#+html: <img src="figuras/hadoop_eco.png" />
+#+html: <figcaption>Ecossistema Hadoop. Créditos: <a href="https://dzone.com/articles/example-of-etl-application-using-apache-spark-and">bitsinglass</a> </figcaption>
+#+html: </figure> </p>
 
 * Orquestrando ambientes de big data distruibuidos com Zookeeper, Yarn e Sqoop
 ** Zookeepr
