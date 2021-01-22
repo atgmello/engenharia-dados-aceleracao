@@ -4,6 +4,9 @@
 #+TITLE: Engenharia de Dados
 :CONTENTS:
 [[#abertura---como-trabalhar-em-um-ambiente-%C3%A1gil-e-global][Abertura - Como trabalhar em um ambiente ágil e global]]
+[[#monitoramento-de-clusters-hadoop-de-alto-n%C3%ADvel-com-hdfs-e-yarn][Monitoramento de clusters Hadoop de alto nível com HDFS e Yarn]]
+[[#orquestrando-ambientes-de-big-data-distruibuidos-com-zookeeper-%2C-yarn-e-sqoop][Orquestrando ambientes de big data distruibuidos com Zookeeper, Yarn e Sqoop]]
+[[#como-realizar-consultas-de-maneira-simples-no-ambiente-complexo-de-big-data-com-hive-e-impala][Como realizar consultas de maneira simples no ambiente complexo de Big Data com HIVE e Impala]]
 :END:
 
 * Abertura - Como trabalhar em um ambiente ágil e global
