@@ -401,8 +401,9 @@ Como resolver: recuperar os arquivos (caso haja replicação) ou apagar.
 ** Introdução a Micro Serviços
 Existem diferentes tipos de arquiteturas.
 *** Monolito
-Banco + Aplicação (front + back) tudo no mesmo servidor.
+Ex: Banco + Aplicação (front + back) tudo no mesmo servidor.
 **** Desvantagens
+Forte acoplamento entre diferentes módulos e responsabilidades.
 **** Vantagens
 Comunicação simplificada dentro do sistema
 *** Micro Serviços
@@ -420,11 +421,13 @@ O sistema é dividido em diversos "módulos" (diversas partes).
 ** Kafka
 Sistema de mensageria Open Source.
 
-> Apache Kafka is an open-source distributed event streaming platform used by thousands of companies for high-performance data pipelines, streaming analytics, data integration, and mission-critical applications.
+#+BEGIN_QUOTE
+Apache Kafka is an open-source distributed event streaming platform used by thousands of companies for high-performance data pipelines, streaming analytics, data integration, and mission-critical applications.
+#+END_QUOTE
 
 #+html: <p align="center"> <figure>
 #+html: <img src="figuras/kafka_ex.png" />
-#+html: <figcaption>Visão geral dos componentes Kafka. Créditos: <a href="https://medium.com/@kavimaluskam/start-your-real-time-pipeline-with-apache-kafka-39e30129892a">bitsinglass</a> </figcaption>
+#+html: <figcaption>Visão geral dos componentes Kafka. Créditos: <a href="https://medium.com/@kavimaluskam/start-your-real-time-pipeline-with-apache-kafka-39e30129892a">kavimaluskam@medium</a> </figcaption>
 #+html: </figure> </p>
 
 *** Producers
@@ -509,13 +512,16 @@ c.close()
 
 ** Kafka as a Service
 Karafka - Managed Apache Kafka Cluster
+
 https://www.cloudkarafka.com/
 
 5 tópicos grátis (free-tier)
 
 ** Recursos
 https://github.com/huguinho-alves/python_aceleracao_everys
+
 [[https://medium.com/@kavimaluskam/start-your-real-time-pipeline-with-apache-kafka-39e30129892a][Start your real-time pipeline with Apache Kafka]]
+
 [[https://stackoverflow.com/questions/4127241/orchestration-vs-choreography#:~:text=The%20choreography%20describes%20the%20interactions,the%20services%20involved%20should%20reside.][Orchestration vs. Choreography]]
 
 * Próximas aulas
