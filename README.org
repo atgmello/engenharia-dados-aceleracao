@@ -347,19 +347,37 @@ Depende do Zookeeper para que consiga funcionar. O Zookeeper dá ao HBase visibi
 *** Arquitetura
 *** Exemplos
 Criação de tabela
+#+BEGIN_SRC bash
+
+#+END_SRC
 
 Inserção de dados
+#+BEGIN_SRC bash
+
+#+END_SRC
 
 Versionamento
+#+BEGIN_SRC bash
 
-Deletar
+#+END_SRC
 
-Deletar em coluna versionada
+Deleção
+#+BEGIN_SRC bash
+
+#+END_SRC
+
+Deleção em coluna versionada
+#+BEGIN_SRC bash
+
+#+END_SRC
 
 TTL
+#+BEGIN_SRC bash
 create 'ttl_exemplo', {'NAME'=>'cf', 'TTL'=>20}
 put 'ttl_exemplo', '1', 'cf:nome', 'Informacao'
 scan 'ttl_exemplo'
+#+END_SRC
+
 ** Cassandra
 Banco de dados distribuído e orientado a coluna (Column Family ou Wide Column).
 
@@ -385,10 +403,13 @@ Registro temporário: colunas com propriedade TTL - Time To Live. Os registros s
 
 ** Recursos
 https://github.com/pentguard/DIO-Aceleracao-4-HBase-Cassandra
+
 https://www.datastax.com/
 
 ** Etc
+#+BEGIN_SRC bash
 sudo -u hdfs hadoop dfsadmin -safemode leave
+#+END_SRC
 
 Por que o safemode é ativado? Arquivos corrompidos.
 
@@ -403,20 +424,25 @@ Existem diferentes tipos de arquiteturas.
 *** Monolito
 Ex: Banco + Aplicação (front + back) tudo no mesmo servidor.
 **** Desvantagens
-Forte acoplamento entre diferentes módulos e responsabilidades.
+- Forte acoplamento entre diferentes módulos e responsabilidades
 **** Vantagens
-Comunicação simplificada dentro do sistema
+- Comunicação simplificada entre componentes do sistema
 *** Micro Serviços
-O sistema é dividido em diversos "módulos" (diversas partes).
+O sistema é dividido em diversos "módulos" (diversas partes/serviços).
 **** Desvantagens
 - Complexidade em coordenar a comunicação de diferentes servidores/serviços
 - Comunicação pode gerar acoplamento entre os módulos
-  - Pode ser resolvido através de um serviço de mensageria!
+  - Contudo, esse ponto pode ser solucionado através de um serviço de mensageria!
 **** Vantagens
 - Isolamento de responsabilidades
-  Melhor manutenibilidade/sustentação
+  - Melhor manutenibilidade/sustentação
 - Controle granulirizado da escala de cada um dos serviços
-  Escalabilidade facilitada
+  - Escalabilidade facilitada
+
+*** Conclusão
+[[http://highscalability.com/blog/2014/4/8/microservices-not-a-free-lunch.html][Não existe almoço grátis.]]
+
+Talvez um ponto controverso, mas que vale a pena ser considerado: [[https://blog.cleancoder.com/uncle-bob/2014/10/01/CleanMicroserviceArchitecture.html][micro serviços não são um tipo de arquitetura.]]
 
 ** Kafka
 Sistema de mensageria Open Source.
@@ -431,7 +457,7 @@ Apache Kafka is an open-source distributed event streaming platform used by thou
 #+html: </figure> </p>
 
 *** Producers
-Geram mensagens, que são enviadas para uma fila (mais especificamente tópicos, no Kafka), a serem lidas por determinados Consumers
+Geram mensagens, que são enviadas para uma fila (mais especificamente tópicos, no Kafka), a serem lidas por Consumers.
 
 #+BEGIN_SRC python
 topic = 'topic-name'
@@ -523,6 +549,10 @@ https://github.com/huguinho-alves/python_aceleracao_everys
 [[https://medium.com/@kavimaluskam/start-your-real-time-pipeline-with-apache-kafka-39e30129892a][Start your real-time pipeline with Apache Kafka]]
 
 [[https://stackoverflow.com/questions/4127241/orchestration-vs-choreography#:~:text=The%20choreography%20describes%20the%20interactions,the%20services%20involved%20should%20reside.][Orchestration vs. Choreography]]
+
+[[http://highscalability.com/blog/2014/4/8/microservices-not-a-free-lunch.html][Microservices - Not A Free Lunch!]]
+
+[[https://blog.cleancoder.com/uncle-bob/2014/10/01/CleanMicroserviceArchitecture.html][Clean Micro-service Architecture]]
 
 * Próximas aulas
 ** Processando grandes conjuntos de dados de forma paralela e distribuída com Spark
