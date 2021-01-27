@@ -10,6 +10,8 @@
 1. [[#orquestrando-ambientes-de-big-data-distruibuidos-com-zookeeper-yarn-e-sqoop][Orquestrando ambientes de big data distruibuidos com Zookeeper, Yarn e Sqoop]]
 
 1. [[#como-realizar-consultas-de-maneira-simples-no-ambiente-complexo-de-big-data-com-hive-e-impala][Como realizar consultas de maneira simples no ambiente complexo de Big Data com HIVE e Impala]]
+
+1. [[#trabalhando-com-servi%C3%A7os-de-mensageria-real-time-com-python-e-kafka-na-pr%C3%A1tica][Trabalhando com serviços de mensageria real time com Python e Kafka na prática]]
 :END:
 
 * Abertura - Como trabalhar em um ambiente ágil e global
@@ -148,7 +150,7 @@ http://dontpad.com/aceleracaoeveris
 https://drive.google.com/drive/folders/1xaft6H3R3_UvA6-BFHuCvHuWczf6xwqG?usp=sharing
 
 * Como realizar consultas de maneira simples no ambiente complexo de Big Data com HIVE e Impala
-Hive e Impala são frontends que possibilitam uma conexão facilitada aos dados no HDFS.
+Hive e Impala são frontends que possibilitam um a conexão facilitada aos dados no HDFS.
 
 ** Hive
 Hive oferece a linguagem HQL (Hive Query Langue), uma abstração de alto nível ao MapReduce, com linguagem similar ao conhecido SQL.
@@ -304,11 +306,222 @@ LOAD DATA LOCAL INPATH '${hiveconf:path_file}' INTO TABLE ${hiveconf:table} PART
 https://gitlab.com/vmb1/hive
 
 * Explorando o poder do NoSQL com Cassandra e Hbase
+Por quê NoSQL em Big Data? Resposta: Performance.
+
+MapReduce processa dados em batch e os dados são acessados de forma sequencial. Ou seja, é preciso percorrer todo o dataset (scan search), mesmo para jobs mais simples.
+
+NoSQL possibilita acesso aleatório aos dados em termos de posição do registro e tempo.
+
+** CAP
+Teorema CAP: Consistência, Disponibilidade, Partição Tolerante a Falhas.
+
+** HBase
+Banco de dados distribuído e orientado a coluna (Column Family ou Wide Column).
+
+É um Map:
+- Esparso
+- Distribuído
+- Persistente
+- Multidimensional
+- Ordenado
+
+Depende do Zookeeper para que consiga funcionar. O Zookeeper dá ao HBase visibilidade a todos os nós do cluster.
+
+**** Desvantagem
+- Infelizmente não possui uma linguagem de busca (query)
+- Não suporta índices em colunas fora da rowkey
+- Não suporta tabelas secundárias de índices
+
+**** Vantagem
+- Fácil integração ao ecossistema Hadoop
+
+*** Estrutura
+- Map indexado por uma linha chave (row key), coluna chave (column key) e uma coluna timestamp.
+- Cada valor no Map é interpretado como um vetor de bytes (array of bytes)
+- Não distingue tipos (int, str, etc): pode armazenar qualquer tipo de dado, inclusive documentos (JSON, CSV, ...)
+
+{
+
+}
+
+*** Arquitetura
+*** Exemplos
+Criação de tabela
+
+Inserção de dados
+
+Versionamento
+
+Deletar
+
+Deletar em coluna versionada
+
+TTL
+create 'ttl_exemplo', {'NAME'=>'cf', 'TTL'=>20}
+put 'ttl_exemplo', '1', 'cf:nome', 'Informacao'
+scan 'ttl_exemplo'
+** Cassandra
+Banco de dados distribuído e orientado a coluna (Column Family ou Wide Column).
+
+Os dados aqui são tipados.
+
+Possui linguagem CQL (SQL-like), porém com algumas operações não suportadas/recomendadas (eg joins, alguns tipos de agrupamento e filto).
+
+Suporta tabela secundárias de índices e filtros em colunas fora da primary key.
+
+*** Arquitetura
+Não possui ponto de falha central.
+
+Conexão entre nós é realizada de ponta a ponta, utilizando o protocolo Gossip para distribuição dos dados.
+
+Commit table -> memtable -> SSTable
+
+** TTL
+Registro temporário: colunas com propriedade TTL - Time To Live. Os registros são apagados depois desse período.
+
+** Cenários de uso
+- Arquitetura baseada em eventos
+    Kafka Cluster -> Spark Streaming -> HBase/Cassandra -> Enriquecimento -> Destino
+
+** Recursos
+https://github.com/pentguard/DIO-Aceleracao-4-HBase-Cassandra
+https://www.datastax.com/
+
+** Etc
+sudo -u hdfs hadoop dfsadmin -safemode leave
+
+Por que o safemode é ativado? Arquivos corrompidos.
+
+É importante parar todos os serviços do Hadoop antes de desligar a máquina.
+
+Como resolver: recuperar os arquivos (caso haja replicação) ou apagar.
+
 * Intensivo de Python: O mínimo que você precisa saber
 * Trabalhando com serviços de mensageria real time com Python e Kafka na prática
-* Processando grandes conjuntos de dados de forma paralela e distribuída com Spark
-* Criando pipelines de dados eficientes - Parte 1
-* Criando pipelines de dados eficientes - Parte 2
-* Orquestrando Big Data em Ambiente de Nuvem
-* Scala: o poder de uma linguagem multiparadigma
-* O que você precisa saber para construir APIs verdadeiramente restfull
+** Introdução a Micro Serviços
+Existem diferentes tipos de arquiteturas.
+*** Monolito
+Banco + Aplicação (front + back) tudo no mesmo servidor.
+**** Desvantagens
+**** Vantagens
+Comunicação simplificada dentro do sistema
+*** Micro Serviços
+O sistema é dividido em diversos "módulos" (diversas partes).
+**** Desvantagens
+- Complexidade em coordenar a comunicação de diferentes servidores/serviços
+- Comunicação pode gerar acoplamento entre os módulos
+  - Pode ser resolvido através de um serviço de mensageria!
+**** Vantagens
+- Isolamento de responsabilidades
+  Melhor manutenibilidade/sustentação
+- Controle granulirizado da escala de cada um dos serviços
+  Escalabilidade facilitada
+
+** Kafka
+Sistema de mensageria Open Source.
+
+> Apache Kafka is an open-source distributed event streaming platform used by thousands of companies for high-performance data pipelines, streaming analytics, data integration, and mission-critical applications.
+
+#+html: <p align="center"> <figure>
+#+html: <img src="figuras/kafka_ex.png" />
+#+html: <figcaption>Visão geral dos componentes Kafka. Créditos: <a href="https://medium.com/@kavimaluskam/start-your-real-time-pipeline-with-apache-kafka-39e30129892a">bitsinglass</a> </figcaption>
+#+html: </figure> </p>
+
+*** Producers
+Geram mensagens, que são enviadas para uma fila (mais especificamente tópicos, no Kafka), a serem lidas por determinados Consumers
+
+#+BEGIN_SRC python
+topic = 'topic-name'
+
+# Consumer configuration
+# See https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md
+conf = {
+    'bootstrap.servers': servers,
+    'group.id': group_id,
+    'session.timeout.ms': 6000,
+    'default.topic.config': {'auto.offset.reset': 'smallest'},
+    'security.protocol': 'SASL_SSL',
+    'sasl.mechanisms': 'SCRAM-SHA-256',
+    'sasl.username': username,
+    'sasl.password': password,
+}
+p = Producer(conf)
+
+try:
+    p.produce(topic, "my message new 2", callback=delivery_callback)
+except BufferError as e:
+    print('%% Local producer queue is full (%d messages awaiting delivery): try again\n',
+          len(p))
+p.poll(0)
+
+print('%% Waiting for %d deliveries\n' % len(p))
+p.flush()
+#+END_SRC
+
+*** Consumers
+Subscrevem a determinadas filas (tópicos) e continuamente consomem as mensagens geradas pelo Producer
+
+#+BEGIN_SRC python
+topics = ['topic-name']
+
+# Consumer configuration
+# See https://github.com/edenhill/librdkafka/blob/master/CONFIGURATION.md
+conf = {
+    'bootstrap.servers': servers,
+    'group.id': group_id,
+    'session.timeout.ms': 6000,
+    'default.topic.config': {'auto.offset.reset': 'smallest'},
+    'security.protocol': 'SASL_SSL',
+    'sasl.mechanisms': 'SCRAM-SHA-256',
+    'sasl.username': username,
+    'sasl.password': password,
+}
+
+c = Consumer(conf)
+c.subscribe(topics)
+try:
+    while True:
+        msg = c.poll(timeout=1.0)
+        if msg is None:
+            continue
+        if msg.error():
+            # Error or event
+            if msg.error().code() == KafkaError._PARTITION_EOF:
+                # End of partition event
+                sys.stderr.write('%% %s [%d] reached end at offset %d\n' %
+                                 (msg.topic(), msg.partition(), msg.offset()))
+            elif msg.error():
+                # Error
+                raise KafkaException(msg.error())
+        else:
+            # Proper message
+            sys.stderr.write('%% %s [%d] at offset %d with key %s:\n' %
+                             (msg.topic(), msg.partition(), msg.offset(),
+                              str(msg.key())))
+            print(msg.value())
+
+except KeyboardInterrupt:
+    sys.stderr.write('%% Aborted by user\n')
+
+# Close down consumer to commit final offsets.
+c.close()
+#+END_SRC
+
+** Kafka as a Service
+Karafka - Managed Apache Kafka Cluster
+https://www.cloudkarafka.com/
+
+5 tópicos grátis (free-tier)
+
+** Recursos
+https://github.com/huguinho-alves/python_aceleracao_everys
+[[https://medium.com/@kavimaluskam/start-your-real-time-pipeline-with-apache-kafka-39e30129892a][Start your real-time pipeline with Apache Kafka]]
+[[https://stackoverflow.com/questions/4127241/orchestration-vs-choreography#:~:text=The%20choreography%20describes%20the%20interactions,the%20services%20involved%20should%20reside.][Orchestration vs. Choreography]]
+
+* Próximas aulas
+** Processando grandes conjuntos de dados de forma paralela e distribuída com Spark
+** Criando pipelines de dados eficientes - Parte 1
+** Criando pipelines de dados eficientes - Parte 2
+** Orquestrando Big Data em Ambiente de Nuvem
+** Scala: o poder de uma linguagem multiparadigma
+** O que você precisa saber para construir APIs verdadeiramente restfull
