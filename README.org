@@ -578,7 +578,8 @@ Cache > RAM > Disco
 
 #+html: <p align="center"> <figure>
 #+html: <img src="figuras/memory_speed.png" />
-#+html: <figcaption>Tipos de memória. Créditos: <a href="https://medium.com/@esmerycornielle/the-cpu-and-the-memory-2eb300d6c72d"></a>esmerycornielle@medium</figcaption>
+
+#+html: <figcaption>Tipos de memória. Créditos: <a href="https://medium.com/@esmerycornielle/the-cpu-and-the-memory-2eb300d6c72d">esmerycornielle@medium</a></figcaption>
 #+html: </figure> </p>
 
 Spark, diferentemente do MapReduce, traz os dados para RAM. Isso diminui consideravelmente o tempo de transformação dos dados.
@@ -595,7 +596,7 @@ Trata-se, portanto, de um framework in-memory.
 ** Arquitetura
 #+html: <p align="center"> <figure>
 #+html: <img src="figuras/spark_overview.png" />
-#+html: <figcaption>Arquitetura do Apache Spark. Créditos: <a href="https://spark.apache.org/docs/2.0.0/cluster-overview.html"></a>Documentação</figcaption>
+#+html: <figcaption>Arquitetura do Apache Spark. Créditos: <a href="https://spark.apache.org/docs/2.0.0/cluster-overview.html">Documentação</a></figcaption>
 #+html: </figure> </p>
 
 Driver Node contém o Spark Context, responsável por gerir os recursos a serem utilizados no processamento dos dados
@@ -681,6 +682,8 @@ spark.sql("SELECT square(Appearances) FROM av").show()
 [[http://spark.apache.org/docs/2.4.0/cluster-overview.html][Cluster Mode Overview]]
 [[https://docs.microsoft.com/pt-br/azure/databricks/spark/latest/spark-sql/udf-scala][Funções definidas pelo usuário – Scala]]
 [[https://medium.com/@esmerycornielle/the-cpu-and-the-memory-2eb300d6c72d][The CPU and The Memory]]
+[[https://www.udacity.com/course/learn-spark-at-udacity--ud2002][Learn Spark at Udacity (Free)]]
+[[https://github.com/databricks/koalas][Koalas (Pandas from Spark)]]
 
 * Próximas aulas
 ** Criando pipelines de dados eficientes - Parte 1
