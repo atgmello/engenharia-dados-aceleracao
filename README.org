@@ -15,7 +15,8 @@
 :END:
 
 * Abertura - Como trabalhar em um ambiente ágil e global
-Kick-off da Aceleração.  A live começou com a apresentação da Everis, empresa de
+** Introdução
+Kick-off da Aceleração.  A live começou com a apresentação da [[https://www.everis.com/brazil/pt-br/home-br][Everis]], empresa de
 consultoria multinacional que estará ministrando as palestras técnicas sobre o
 assunto de Big Data. Entraram em detalhes sobre a filosofia e cultura da
 empresa, bem como ressaltaram que há oportunidades na área de Dados e que
@@ -32,6 +33,7 @@ _core_ Hadoop com HDFS, Yarn, além de outras ferramentas do ecossistema como
 MapReduce, Sqoop, Hive, Zookeeper e Spark.  Também serão cobertas noções de
 bancos de dados NoSQL como Cassandra e HBase.
 
+*** Agile
 Foi ressaltada a importância da mudança do paradigma Waterfall para o paradigma
 Agile em projetos de Engenharia de Dados.  Planejamento e execução de Sprints,
 Dailies, Reviews, organização em Squads autosuficientes, constante interação com
@@ -45,8 +47,15 @@ framework.
 #+html: </figure> </p>
 
 Agile requer um processo de comunicação forte, com transparência, confiânça e
-união entre os colaboradores das Squads. No geral, focaram no fato de que
-colaboração é um aspecto fundamental do framework Agile.
+união entre os colaboradores das Squads. A colaboração é um aspecto fundamental
+para o sucesso no framework Agile.
+
+*** Recursos
+[[https://agilemanifesto.org/][Manifesto Agile]]
+
+[[https://agilemanifesto.org/principles.html][Princípios Agile]]
+
+[[https://medium.com/@WeAreMobile1st/the-benefits-of-teamwork-and-collaboration-in-software-development-a843cb7e8f73][The Benefits of Teamwork and Collaboration in Software Development]]
 
 * Monitoramento de clusters Hadoop de alto nível com HDFS e Yarn
 ** Sistemas distribuídos
