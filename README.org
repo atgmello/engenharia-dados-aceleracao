@@ -555,12 +555,21 @@ https://github.com/huguinho-alves/python_aceleracao_everys
 [[https://blog.cleancoder.com/uncle-bob/2014/10/01/CleanMicroserviceArchitecture.html][Clean Micro-service Architecture]]
 
 * Processando grandes conjuntos de dados de forma paralela e distribuída com Spark
+** O que é Spark?
 #+BEGIN_QUOTE
 Apache Spark is a unified analytics engine for large-scale data processing.
 #+END_QUOTE
 
+https://spark.apache.org/
+
 ** Databricks
 Distribuição comercial do Apache Spark.
+
+#+BEGIN_QUOTE
+Databricks adds enterprise-grade functionality to the innovations of the open source community. As a fully managed cloud service, we handle your data security and software reliability.
+#+END_QUOTE
+
+https://databricks.com/
 
 ** Diferencial do Spark
 Executa processamento de dados até 100 vezes mais rápido que o MapReduce tradicional.
@@ -678,6 +687,10 @@ spark.sql("SELECT square(Appearances) FROM av").show()
     #+END_SRC
 
 ** Recursos
+[[https://spark.apache.org/][Spark]]
+
+[[https://databricks.com/][Databrick]]
+
 [[https://spark.apache.org/news/spark-wins-daytona-gray-sort-100tb-benchmark.html][Spark wins Daytona Gray Sort 100TB Benchmark]]
 
 [[http://spark.apache.org/docs/2.4.0/cluster-overview.html][Cluster Mode Overview]]
