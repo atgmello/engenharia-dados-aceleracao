@@ -601,15 +601,15 @@ Trata-se, portanto, de um framework in-memory.
 
 Driver Node contém o Spark Context, responsável por gerir os recursos a serem utilizados no processamento dos dados
 
-Worker Node = nó (máquina) do cluster
+- Worker Node = um nó (máquina) do cluster
 
-Cada Worker Node pode conter um ou mais Executors
+- Cada Worker Node pode conter um ou mais Executors
 
-Cada Executor processa uma ou mais Tasks
+- Cada Executor processa uma ou mais Tasks
 
-Executors avisam ao Spark Context o progresso de suas Tasks
+- Executors avisam ao Spark Context o progresso de suas Tasks
 
-Caso um Executor deixe de responder (máquina caiu) o Spark Context consegue criar novos Executores em outro Worker Node para resumir o processamento interrompido
+  - Caso um Executor deixe de responder (máquina caiu) o Spark Context consegue criar novos Executores em outro Worker Node para resumir o processamento interrompido
 
 *** Divisão
 Apache Spark pode ser quebrado em cinco bibliotecas:
@@ -679,10 +679,15 @@ spark.sql("SELECT square(Appearances) FROM av").show()
 
 ** Recursos
 [[https://spark.apache.org/news/spark-wins-daytona-gray-sort-100tb-benchmark.html][Spark wins Daytona Gray Sort 100TB Benchmark]]
+
 [[http://spark.apache.org/docs/2.4.0/cluster-overview.html][Cluster Mode Overview]]
+
 [[https://docs.microsoft.com/pt-br/azure/databricks/spark/latest/spark-sql/udf-scala][Funções definidas pelo usuário – Scala]]
+
 [[https://medium.com/@esmerycornielle/the-cpu-and-the-memory-2eb300d6c72d][The CPU and The Memory]]
+
 [[https://www.udacity.com/course/learn-spark-at-udacity--ud2002][Learn Spark at Udacity (Free)]]
+
 [[https://github.com/databricks/koalas][Koalas (Pandas from Spark)]]
 
 * Próximas aulas
