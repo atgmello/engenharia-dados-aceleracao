@@ -554,8 +554,135 @@ https://github.com/huguinho-alves/python_aceleracao_everys
 
 [[https://blog.cleancoder.com/uncle-bob/2014/10/01/CleanMicroserviceArchitecture.html][Clean Micro-service Architecture]]
 
+* Processando grandes conjuntos de dados de forma paralela e distribuída com Spark
+#+BEGIN_QUOTE
+Apache Spark is a unified analytics engine for large-scale data processing.
+#+END_QUOTE
+
+** Databricks
+Distribuição comercial do Apache Spark.
+
+** Diferencial do Spark
+Executa processamento de dados até 100 vezes mais rápido que o MapReduce tradicional.
+
+#+BEGIN_QUOTE
+They used Spark and sorted 100TB of data using 206 EC2 i2.8xlarge machines in 23 minutes. The previous world record was 72 minutes, set by a Hadoop MapReduce cluster of 2100 nodes.
+#+END_QUOTE
+
+https://spark.apache.org/news/spark-wins-daytona-gray-sort-100tb-benchmark.html
+
+*** O truque
+Velocidade de acesso:
+
+Cache > RAM > Disco
+
+#+html: <p align="center"> <figure>
+#+html: <img src="figuras/memory_speed.png" />
+#+html: <figcaption>Tipos de memória. Créditos: <a href="https://medium.com/@esmerycornielle/the-cpu-and-the-memory-2eb300d6c72d"></a>esmerycornielle@medium</figcaption>
+#+html: </figure> </p>
+
+Spark, diferentemente do MapReduce, traz os dados para RAM. Isso diminui consideravelmente o tempo de transformação dos dados.
+
+Trata-se, portanto, de um framework in-memory.
+
+*** Linguagens suportadas
+- Scala
+- Java
+- Python
+- R
+- SQL
+
+** Arquitetura
+#+html: <p align="center"> <figure>
+#+html: <img src="figuras/spark_overview.png" />
+#+html: <figcaption>Arquitetura do Apache Spark. Créditos: <a href="https://spark.apache.org/docs/2.0.0/cluster-overview.html"></a>Documentação</figcaption>
+#+html: </figure> </p>
+
+Driver Node contém o Spark Context, responsável por gerir os recursos a serem utilizados no processamento dos dados
+
+Worker Node = nó (máquina) do cluster
+
+Cada Worker Node pode conter um ou mais Executors
+
+Cada Executor processa uma ou mais Tasks
+
+Executors avisam ao Spark Context o progresso de suas Tasks
+
+Caso um Executor deixe de responder (máquina caiu) o Spark Context consegue criar novos Executores em outro Worker Node para resumir o processamento interrompido
+
+*** Divisão
+Apache Spark pode ser quebrado em cinco bibliotecas:
+
+- SparkSQL
+  Processamento de dados tabulares
+- Spark Streaming
+  Micro-batch de dados
+- MLlib
+  Machine Learning
+- GraphX
+  Dados em grafos
+
+Todos são sustentados pelo Spark Core
+
+** RDD
+Resilient Distributed Dataset é a principal abstração do Spark.
+
+- Resilient: Dado pode ser recuperado facilmente em caso de falhas
+
+- Distributed: Pode ser processado por diferentes máquinas
+
+RDDs são imutáveis. Transformações sobre RDDs geram novas RDDs.
+** Exemplos
+- Context
+  #+BEGIN_SRC scala
+import org.apache.spark.SparkContext
+import org.apache.spark.SparkConf
+
+val conf = new SparkConf().setAppName("Simple Application")
+val sc = new SparkContext(conf)
+  #+END_SRC
+
+- Leitura de dados
+  #+BEGIN_SRC scala
+val df = spark.read.format("csv").option("sep",",").option("header","true").load("file:///home/everis/avengers.csv")
+
+insurance.show(10, false)
+
+val df_url = insurance.select("URL")
+  #+END_SRC
+
+- Manipulação
+  #+BEGIN_SRC scala
+df.select("field1","field2").show()
+df.select($"field1", $"field2"+1).show()
+df.groupBy("age").count().show()
+  #+END_SRC
+
+- SQL
+  #+BEGIN_SRC scala
+df.createOrReplaceTempView("av")
+
+spark.sql("SELECT Appearances FROM av where URL LIKE '%Iron_Man%'").show()
+  #+END_SRC
+
+  - UDF
+    User Defined Function
+    #+BEGIN_SRC scala
+val squared = (s: Long) => {
+  s * s
+}
+spark.udf.register("square", squared)
+
+spark.sql("SELECT square(Appearances) FROM av").show()
+    #+END_SRC
+
+** Recursos
+[[https://spark.apache.org/news/spark-wins-daytona-gray-sort-100tb-benchmark.html][Spark wins Daytona Gray Sort 100TB Benchmark]]
+[[http://spark.apache.org/docs/2.4.0/cluster-overview.html][Cluster Mode Overview]]
+[[https://docs.microsoft.com/pt-br/azure/databricks/spark/latest/spark-sql/udf-scala][Funções definidas pelo usuário – Scala]]
+[[https://medium.com/@esmerycornielle/the-cpu-and-the-memory-2eb300d6c72d][The CPU and The Memory]]
+
 * Próximas aulas
-** Processando grandes conjuntos de dados de forma paralela e distribuída com Spark
 ** Criando pipelines de dados eficientes - Parte 1
 ** Criando pipelines de dados eficientes - Parte 2
 ** Orquestrando Big Data em Ambiente de Nuvem
