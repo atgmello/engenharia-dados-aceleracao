@@ -5,13 +5,20 @@
 :CONTENTS:
 1. [[#abertura---como-trabalhar-em-um-ambiente-%C3%A1gil-e-global][Abertura - Como trabalhar em um ambiente ágil e global]]
 
-1. [[#monitoramento-de-clusters-hadoop-de-alto-n%C3%ADvel-com-hdfs-e-yarn][Monitoramento de clusters Hadoop de alto nível com HDFS e Yarn]]
+2. [[#monitoramento-de-clusters-hadoop-de-alto-n%C3%ADvel-com-hdfs-e-yarn][Monitoramento de clusters Hadoop de alto nível com HDFS e Yarn]]
 
-1. [[#orquestrando-ambientes-de-big-data-distruibuidos-com-zookeeper-yarn-e-sqoop][Orquestrando ambientes de big data distruibuidos com Zookeeper, Yarn e Sqoop]]
+3. [[#orquestrando-ambientes-de-big-data-distruibuidos-com-zookeeper-yarn-e-sqoop][Orquestrando ambientes de big data distruibuidos com Zookeeper, Yarn e Sqoop]]
 
-1. [[#como-realizar-consultas-de-maneira-simples-no-ambiente-complexo-de-big-data-com-hive-e-impala][Como realizar consultas de maneira simples no ambiente complexo de Big Data com HIVE e Impala]]
+4. [[#como-realizar-consultas-de-maneira-simples-no-ambiente-complexo-de-big-data-com-hive-e-impala][Como realizar consultas de maneira simples no ambiente complexo de Big Data com HIVE e Impala]]
 
-1. [[#trabalhando-com-servi%C3%A7os-de-mensageria-real-time-com-python-e-kafka-na-pr%C3%A1tica][Trabalhando com serviços de mensageria real time com Python e Kafka na prática]]
+5. [[#trabalhando-com-servi%C3%A7os-de-mensageria-real-time-com-python-e-kafka-na-pr%C3%A1tica][Trabalhando com serviços de mensageria real time com Python e Kafka na prática]]
+
+6. [[#processando-grandes-conjuntos-de-dados-de-forma-paralela-e-distribu%C3%ADda-com-spark][Processando grandes conjuntos de dados de forma paralela e distribuída com Spark]]
+
+7. [[#pyspark-criando-pipelines-de-dados-eficientes][PySpark: Criando pipelines de dados eficientes]]
+
+8. [[#orquestrando-big-data-em-ambiente-de-nuvem][Orquestrando Big Data em Ambiente de Nuvem]]
+
 :END:
 
 * Abertura - Como trabalhar em um ambiente ágil e global
@@ -712,7 +719,7 @@ spark.sql("SELECT square(Appearances) FROM av").show()
 
 [[https://github.com/databricks/koalas][Koalas (Pandas from Spark)]]
 
-* PySpark: Criando pipelines de dados eficientes - Parte 1
+* PySpark: Criando pipelines de dados eficientes
 ** Aplicabilidade
 - Operações de extração-transformação-carregamento (ETL)
 - Análise preditiva e aprendizado de máquina
@@ -784,6 +791,9 @@ Exemplo:
 #+html: </figure> </p>
 
 ** Distribuições
+*** On Premisses
+**** Cloudera
+[[https://www.cloudera.com/][Cloudera]]
 *** Cloud
 **** AWS
 - EMR
@@ -797,9 +807,34 @@ Exemplo:
 **** Databricks
 [[https://community.cloud.databricks.com/login.html][Databricks Community]]
 
-*** On Premisses
-**** Cloudera
-[[https://www.cloudera.com/][Cloudera]]
+** Pitfalls
+- Particionamento dos dados no HDFS
+  - Inserir arquivos muito pequenos acaba desperdiçando espaço: o HDFS possui um tamanho fixo para cada bloco, independente do tamanho do arquivo
+  - Dados divididos em muitods pedaços impactam negativamente na velocidade da recuperação de dados
+** Boas práticas
+*** Camadas
+- Raw Zone
+  Todo dado recebido pelos sistemas origens classificamos como Raw Zone.
+
+  Em geral, todo o dado chega em formato String, o mais tipo mais flexível e genérico de todos. Assim garantimos que o dado seja armazenado AS-IS.
+
+- Trusted Zone
+  Na camada Trusted realizamos ingestões mais direcionadas a regras de negócio.
+
+  Aqui são realizados cruzamentos de tabelas Raw, bem como Cast dos dados para os tipos ideais, além da aplicação de regras de negócio.
+
+- Refined Zone
+  Na última camada, Refined, criamos visões para relatórios.
+
+  Aqui aparecem apenas as colunas necessárias para as visões esperadas.
+
+** Tipos de armazenamento
+- Avro
+- Parquet
+- ORC
+
+[[file:figuras/file_formats.png]]
+https://www.datanami.com/2018/05/16/big-data-file-formats-demystified/
 
 ** Recursos
 [[https://docs.cloudera.com/runtime/7.2.1/spark-overview/topics/spark-overview.html][Spark Overview for Data Science]]
@@ -812,8 +847,157 @@ Exemplo:
 
 [[https://www.cloudera.com/about/training/certification/ccp-data-engineer.html][CCP Data Engineer Exam (DE575)]]
 
+Dataset 1:
+https://www.kaggle.com/gpreda/covid-world-vaccination-progress
+
+
+Notebook:
+https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/5191291087587071/3239850342304675/2520349622255950/latest.html
+
+* Orquestrando Big Data em Ambiente de Nuvem
+Overview Amazon Web Services.
+
+** Amazon Compute Services
+- EC2
+  - Elastic Compute Cloud
+- Lambda
+  - Serverless Computing (Functions)
+- ECS
+  - Elastic Container Service
+- EKS
+  - Elastic Kubernetes Service
+- Fargate
+  - Serverless Containers
+
+** Amazon Network Services
+- VPC
+  - Virtual Private Cloud
+- Cloud Front
+  - CDN (Content Delivery Network)
+- API Gateway
+- Route53
+  - DNS (Domain Name Service)
+- VPN
+  - Virtual Private Network
+- Direct Connect
+  - Alternativa ao VPN
+
+** Amazon Storage Services
+- S3
+  - Simple Storage Service
+- Glacier
+  - S3 de baixo acesso e longa duração
+- EBS
+  - Elastic Block Store
+  - Mantém os dados armazenados próximos à computação
+- EFS
+  - Elastic File System (NFS da AWS)
+
+** Amazon Security Services
+- IAM
+  - Identity and Access Management
+- ACM
+  - AWS Certificate Manager
+- KMS
+  - Key Management Service
+- WAF
+- Inspector
+  + Avaliação automática de segurança
+- CloudHSM
+  - Hardware Security Management
+
+** Amazon Management Services
+- CloudWatch
+  - Coleta dados de monitoramento
+- CloudTrail
+  - Governança e rastreabilidade de usuários
+- Systems Manager
+  - Simplifica o gerenciamento de recursos
+- Trusted Advisor
+  - Dicas de melhores práticas em real-time
+
+** Amazon DevOps Services
+- CodeCommmit
+  + Git da AWS
+- CodePipeline
+- CodeBuild
+- CodeDeploy
+- CloudFormation
+  + IaC (Infrastructure as Code)
+- OpsWork
+  + IaC com Chef e Puppet
+- Config
+  + Auditoria de configurações
+- Service Catalog
+
+** Amazon Application Services
+- Storage Gateway
+- Cloud Search
+  + Elasticsearch da AWS
+- SQS
+  + Simple Queue Service
+  + RabbitMQ da AWS
+- SES
+  + Simple Email Service
+- SWF
+  + Simple Workflow Service
+
+** Amazon Mobile Services
+- Cognito
+  + Autenticação e gerenciamento de usuários de apps
+- SNS
+  + Simple Notification Service
+- Mobile Analytics
+  + Amazon Pinpoint
+- Device Farm
+  + Serviço de teste de aplicativos
+- Mobile Hub
+  + Helper de configuração de serviços back-end para apps móveis
+
+** Amazon Database Services
+- RDS
+  + Relation Database Service
+- DynamoDB
+  + HBase (NoSQL) da AWS
+- Redshift
+  + Datawarehouse
+  + PostgreSQL distribuído da AWS
+- ElastiCache
+  + In-memory Database
+  + Redis da AWS
+
+** Amazon Analytics Services
+- Athena
+  + Presto da AWS
+- EMR
+  + Elastic MapReduce
+- Data Pipeline
+  + Diversas tecnologias de ETL
+- Glue
+  + Similar ao Data Pipeline, mas foco em big data
+- Kinesis
+  + Kafka da AWS
+- QuickSight
+  + Tableau da AWS
+- Elasticsearch Service
+  + Elasticsearch as a service
+
+** Amazon Machine Learning
+- SageMaker
+  + JupyterLab da AWS
+- Comprehend
+  + NLP as a service
+- Polly
+  + Text to Speech (TTS)
+- Lex
+  + Chatbot
+- Rekognition
+  + Visão Computacional (imagens) as a service
+- DeepLens
+  + Visão Computacional (vídeo) as a service
+- Transcribe
+  + Automatic Speech Recognition
+
 * Próximas aulas
-** Criando pipelines de dados eficientes - Parte 2
-** Orquestrando Big Data em Ambiente de Nuvem
 ** Scala: o poder de uma linguagem multiparadigma
 ** O que você precisa saber para construir APIs verdadeiramente restfull
