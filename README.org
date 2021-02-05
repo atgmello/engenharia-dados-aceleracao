@@ -1052,7 +1052,7 @@ primariamente em projetos Java.
 Recursos interessantes presentes na linguagem.
 
 *** val vs var
-#+BEGIN_QUOTE
+#+BEGIN_SRC scala
 // Declaring values is done using either var or val.
 // val declarations are immutable, whereas vars are mutable. Immutability is
 // a good thing.
@@ -1060,7 +1060,7 @@ val x = 10 // x is now 10
 x = 20     // error: reassignment to val
 var y = 10
 y = 20     // y is now 20
-#+END_QUOTE
+#+END_SRC
 
 *** Pattern matching
 #+BEGIN_SRC scala
