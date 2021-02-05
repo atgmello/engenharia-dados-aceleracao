@@ -10,6 +10,11 @@ Ajuda na recuperação de falhas.
 Para o desenvolvedor, o Zookeeper é completamente transparente.
 É mais aparente para quem vai trabalhar com infra.
 
+#+html: <p align="center"> <figure>
+#+html: <img src="figuras/zookeeper.jpg" />
+#+html: <figcaption>Benefícios do Zookeeper. Créditos: <a href="https://data-flair.training/blogs/zookeeper-tutorial/">data-flair</a> </figcaption>
+#+html: </figure> </p>
+
 * Sqoop
 Movimenta dados entre banco de dados relacional e HDFS.  Realiza a leitura linha
 a linha de tabelas para arquivos (pode pecar na performance).  Permite importar
@@ -18,6 +23,7 @@ MapReduce por debaixo dos panos: processamento paralelo e tolerante a falha.
 Contudo MapReduce já não é mais o motor mais rápido disponível (alternativas:
 Spark, Flink).
 
+** Exemplo
 #+BEGIN_SRC bash
 sqoop import \
     --connect jdbc: \
@@ -27,7 +33,16 @@ sqoop import \
     --where "column='something'"
 #+END_SRC
 
+** Caso de uso
+
+#+html: <p align="center"> <figure>
+#+html: <img src="figuras/sqoop.jpg" />
+#+html: <figcaption>Sqoop Usecase. Créditos: <a href="https://aws.amazon.com/blogs/big-data/migrate-rdbms-or-on-premise-data-to-emr-hive-s3-and-amazon-redshift-using-emr-sqoop/">Amazon</a> </figcaption>
+#+html: </figure> </p>
+
 * Desafio
+Consultas SQL a serem feitas sobre o conjunto de dados de Pokémon (vide [[#recursos][Dataset]]).
+
 ** SQL
 1. Todos os Pokémon lendários
    #+BEGIN_SRC sql
@@ -35,12 +50,14 @@ sqoop import \
     FROM trainning.pokemon
     WHERE legendary=TRUE;
    #+END_SRC
+
 2. Todos os Pokémon de apenas um tipo
    #+BEGIN_SRC sql
     SELECT *
     FROM trainning.pokemon
     WHERE type2='';
    #+END_SRC
+
 3. Os top 10 Pokémon mais rápidos
    #+BEGIN_SRC sql
     SELECT *
@@ -48,6 +65,7 @@ sqoop import \
     ORDER BY speed DESC
     LIMIT 10;
    #+END_SRC
+
 4. Os top 50 Pokémon com menos HP
    #+BEGIN_SRC sql
     SELECT *
@@ -55,22 +73,38 @@ sqoop import \
     ORDER BY hp ASC
     LIMIT 50;
    #+END_SRC
+
 5. Os top 100 Pokémon com maiores atributos
+   - Total (soma)
    #+BEGIN_SRC sql
     SELECT *
     FROM trainning.pokemon
     ORDER BY
-    greatest(hp, attack, defense, spatk, spdef, speed)
+    SUM(hp, attack, defense, spatk, spdef, speed)
     DESC
     LIMIT 100;
    #+END_SRC
 
-* Sqoop
+   - Individuais
+   #+BEGIN_SRC sql
+    SELECT *
+    FROM trainning.pokemon
+    ORDER BY
+    GREATEST(hp, attack, defense, spatk, spdef, speed)
+    DESC
+    LIMIT 100;
+   #+END_SRC
 
 * Recursos
-http://dontpad.com/aceleracaoeveris
+[[https://drive.google.com/file/d/1ZN53soEHPYiRS1hCtEN3L3lYSnuCZH9-/view?usp=sharing][Slides da aula]]
 
-https://drive.google.com/drive/folders/1xaft6H3R3_UvA6-BFHuCvHuWczf6xwqG?usp=sharing
+[[https://drive.google.com/drive/folders/1xaft6H3R3_UvA6-BFHuCvHuWczf6xwqG?usp=sharing][Datasets]]
+
+[[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/ecossistema_dontpad.org][Comandos SQL e Sqoop (dontpad)]]
+
+[[https://data-flair.training/blogs/zookeeper-tutorial/][Zookeeper Tutorial]]
+
+[[https://aws.amazon.com/blogs/big-data/migrate-rdbms-or-on-premise-data-to-emr-hive-s3-and-amazon-redshift-using-emr-sqoop/][Sqoop Usecase]]
 
 * Voltar
 [[https://github.com/atgmello/engenharia-dados-aceleracao#engenharia-de-dados][Sumário]]
