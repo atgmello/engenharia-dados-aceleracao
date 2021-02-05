@@ -852,12 +852,9 @@ Exemplo:
 
 [[https://www.cloudera.com/about/training/certification/ccp-data-engineer.html][CCP Data Engineer Exam (DE575)]]
 
-Dataset 1:
-https://www.kaggle.com/gpreda/covid-world-vaccination-progress
+[[https://www.kaggle.com/gpreda/covid-world-vaccination-progress][Covid World Vaccination Dataset (Kaggle)]]
 
-
-Notebook:
-https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/5191291087587071/3239850342304675/2520349622255950/latest.html
+[[https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/5191291087587071/3239850342304675/2520349622255950/latest.html][Notebook]]
 
 * Orquestrando Big Data em Ambiente de Nuvem
 ** Cloud Computing
@@ -1029,7 +1026,9 @@ Overview dos principais serviços da AWS.
 
 ** Recursos
 [[https://www.ibm.com/blogs/cloud-computing/2014/01/31/cloud-computing-defined-characteristics-service-levels/][Cloud computing defined: Characteristics & service levels]]
+
 [[https://imelgrat.me/cloud/cloud-services-models-help-business/][Cloud services delivery models. Which can help your business?]]
+
 [[https://aws.amazon.com/blogs/aws/aws-named-as-a-leader-in-gartners-infrastructure-as-a-service-iaas-magic-quadrant-for-the-9th-consecutiveyear/][AWS Named as a Leader in Gartner’s Infrastructure as a Service (IaaS) Magic Quadrant for the 9th Consecutive Year]]
 
 * Scala: o poder de uma linguagem multiparadigma
@@ -1150,9 +1149,13 @@ Porém não é necessário especificar os tipos das variáveis quando estiverem 
 
 ** Recursos
 [[https://www.hammerlab.org/2017/04/06/scala-build-tools/][Building Scala Projects: Maven vs. SBT]]
+
 [[https://scalameta.org/metals/][Metals]]
+
 [[https://learnxinyminutes.com/docs/scala/][Learn X in Y minutes]]
+
 [[http://scalajp.github.io/scala.github.com/tutorials/tour/unified-types.html][Unified Types]]
+
 [[http://alvinalexander.com/scala][Alvin Alexander]]
 
 * O que você precisa saber para construir APIs verdadeiramente restfull
