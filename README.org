@@ -19,16 +19,19 @@ Comentários, correções e contribuições são sempre bem-vindas!
 
 4. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/hive.org][Como realizar consultas de maneira simples no ambiente complexo de Big Data com HIVE e Impala]]
 
-5. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/kafka.org][Trabalhando com serviços de mensageria real time com Python e Kafka na prática]]
+5. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/nosql.org][Explorando o poder do NoSQL com Cassandra e Hbase]]
 
-6. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/spark.org][Processando grandes conjuntos de dados de forma paralela e distribuída com Spark]]
+6. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/python.org][Intensivo de Python: O mínimo que você precisa saber]]
 
-7. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/pyspark.org][PySpark: Criando pipelines de dados eficientes]]
+7. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/kafka.org][Trabalhando com serviços de mensageria real time com Python e Kafka na prática]]
 
-8. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/cloud.org][Orquestrando Big Data em Ambiente de Nuvem]]
+8. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/spark.org][Processando grandes conjuntos de dados de forma paralela e distribuída com Spark]]
 
-9. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/abertura.org][Bla]]
+9. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/pyspark.org][Criando pipelines de dados eficientes]]
 
-10. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/abertura.org][Bla]]
+10. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/cloud.org][Orquestrando Big Data em Ambiente de Nuvem]]
 
-11. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/abertura.org][Bla]]
+11. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/scala.org][Scala: o poder de uma linguagem multiparadigma]]
+
+12. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/rest.org][O que você precisa saber para construir APIs verdadeiramente restfull]]
+
