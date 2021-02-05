@@ -4,29 +4,69 @@
 Clusters de computadores hoje em dia são uma alternativa aos antigos mainframes.
 Enquanto mainframes conseguem oferecer escalabilidade vertical, cluters
 conseguem oferecer escalabilidade horizontal. Isso é, para conseguir mais
-recursos de armazenamento e computação para os mainframes você precisa
+recursos de armazenamento e computação para os mainframes você precisa comprar
+um novo e mais poderoso (e mais caro). Para conseguir mais armazenamento e
+computação em sistemas distribuídos, basta adicionar mais máquinas (comuns) ao
+cluster. Essa é a principal diferença entre escalabilidade vertical e escalabilidade
+horizontal.
 
-Nesse contexto, demos início ao estudo do Hadoop, uma tecnologia desenvolvida
-utilizando princípios de sistemas distribuídos e que, portanto, se encaixam
-nessa nova realidade dos clusters. Passamos por uma descrição alto nível do que
-acontece por debaixo dos panos quando nós, desenvolvedores, interagimos com o
-HDFS e Yarn.
+#+html: <p align="center"> <figure>
+#+html: <img src="figuras/scaling.png" />
+#+html: <figcaption>Escalabilidade Vertical vs Horizontal. Créditos: <a href="https://developersclub.in/horizontal-and-vertical-scaling/">developersclub</a> </figcaption>
+#+html: </figure> </p>
+
+#+BEGIN_QUOTE
+There are three key drivers for horizontally distributing workloads:
+- Scalability: One machine cannot handle request size or data size, so database fragmentation and sharding onto many machines helped solve this.
+- Availability: If one machine goes down, others can keep working.
+- Latency: You can go faster and get better request times when data is geographically closer to end users.
+#+END_QUOTE
+Créditos: [[https://thenewstack.io/how-to-diminish-the-inevitable-failure-of-distributed-systems/][thenewstack]]
 
 * Hadoop
-Essas duas tecnologias são as peças fundamentais que sustentam o ecossistema
-Hadoop. Os nomes HDFS e Yarn podem parecer uma sopa de letrinhas sem muito
+Nesse contexto, damos início ao estudo do Hadoop, uma tecnologia desenvolvida
+utilizando princípios de sistemas distribuídos e que, portanto, se encaixam
+nessa nova realidade dos clusters.
+
+HDFS e YARN são as peças fundamentais que sustentam o ecossistema
+Hadoop. Os nomes HDFS e YARN podem parecer sopas de letrinhas sem muito
 sentido para quem os vê fora de contexto. Mas note que ambos na verdade são
 siglas bastante descritivas do que essas tecnologias se propõem a fazer.
 
+** HDFS
 O HDFS, ou Hadoop Distributed File System, fica encarregado de distribuir e
-gerenciar os seus arquivos entre as máquinas do seu cluster. Já o Yarn, Yet
-Another Resource Negotiator, é responsável por negociar recrusos computacionais
-para as suas tarefas de manipulação de dados.
+gerenciar os seus arquivos entre as máquinas do seu cluster.
 
+#+html: <figure align="center">
+#+html: <img src="figuras/hdfs.gif" />
+#+html: <figcaption>Arquitetura HDFS. Créditos: <a href="https://hadoop.apache.org/docs/r1.2.1/hdfs_design.html">apache</a> </figcaption>
+#+html: </figure>
+
+** YARN
+Já o Yarn, Yet Another Resource Negotiator, é responsável por negociar recrusos
+computacionais para as suas tarefas de manipulação de dados.
+
+#+html: <figure align="center">
+#+html: <img src="figuras/yarn.gif" />
+#+html: <figcaption>Arquitetura YARN. Créditos: <a href="https://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html">apache</a> </figcaption>
+#+html: </figure>
+
+** Visão geral
 #+html: <figure align="center">
 #+html: <img src="figuras/hadoop_eco.png" />
 #+html: <figcaption>Ecossistema Hadoop. Créditos: <a href="https://dzone.com/articles/example-of-etl-application-using-apache-spark-and">dzone</a> </figcaption>
 #+html: </figure>
+
+* Recursos
+[[https://drive.google.com/file/d/1mSzcFASKCTir5ecdRNA7hHb7DoVfOMM0/view?usp=sharing][Slides da aula]]
+
+[[https://developersclub.in/horizontal-and-vertical-scaling/][Horizontal and Vertical Scaling]]
+
+[[https://thenewstack.io/how-to-diminish-the-inevitable-failure-of-distributed-systems/][How to Diminish the Inevitable Failure of Distributed Systems]]
+
+[[https://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html][Apache YARN]]
+
+[[https://hadoop.apache.org/docs/r1.2.1/hdfs_design.html][Apache HDFS]]
 
 * Voltar
 [[https://github.com/atgmello/engenharia-dados-aceleracao#engenharia-de-dados][Sumário]]
