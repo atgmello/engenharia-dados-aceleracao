@@ -123,3 +123,6 @@ primariamente em projetos Java.
 [[http://scalajp.github.io/scala.github.com/tutorials/tour/unified-types.html][Unified Types]]
 
 [[http://alvinalexander.com/scala][Alvin Alexander]]
+
+* Voltar
+[[https://github.com/atgmello/engenharia-dados-aceleracao#engenharia-de-dados][Sumário]]

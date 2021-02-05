@@ -12,3 +12,6 @@ https://github.com/huguinho-alves/python_aceleracao_everys/blob/main/Pandas.ipyn
 
 * Recursos
 [[https://learnxinyminutes.com/docs/python/][Learn Python in Y Minutes]]
+
+* Voltar
+[[https://github.com/atgmello/engenharia-dados-aceleracao#engenharia-de-dados][Sumário]]

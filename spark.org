@@ -147,3 +147,6 @@ spark.sql("SELECT square(Appearances) FROM av").show()
 [[https://www.udacity.com/course/learn-spark-at-udacity--ud2002][Learn Spark at Udacity (Free)]]
 
 [[https://github.com/databricks/koalas][Koalas (Pandas from Spark)]]
+
+* Voltar
+[[https://github.com/atgmello/engenharia-dados-aceleracao#engenharia-de-dados][Sumário]]

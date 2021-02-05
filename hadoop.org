@@ -27,3 +27,6 @@ para as suas tarefas de manipulação de dados.
 #+html: <img src="figuras/hadoop_eco.png" />
 #+html: <figcaption>Ecossistema Hadoop. Créditos: <a href="https://dzone.com/articles/example-of-etl-application-using-apache-spark-and">dzone</a> </figcaption>
 #+html: </figure>
+
+* Voltar
+[[https://github.com/atgmello/engenharia-dados-aceleracao#engenharia-de-dados][Sumário]]

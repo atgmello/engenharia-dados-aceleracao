@@ -181,3 +181,6 @@ LOAD DATA LOCAL INPATH '${hiveconf:path_file}' INTO TABLE ${hiveconf:table} PART
 [[https://cwiki.apache.org/confluence/display/Hive/LanguageManual+Joins][Hive Language Manual - Joins]]
 
 https://gitlab.com/vmb1/hive
+
+* Voltar
+[[https://github.com/atgmello/engenharia-dados-aceleracao#engenharia-de-dados][Sumário]]

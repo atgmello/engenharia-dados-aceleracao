@@ -173,3 +173,6 @@ Overview dos principais serviços da AWS.
 [[https://imelgrat.me/cloud/cloud-services-models-help-business/][Cloud services delivery models. Which can help your business?]]
 
 [[https://aws.amazon.com/blogs/aws/aws-named-as-a-leader-in-gartners-infrastructure-as-a-service-iaas-magic-quadrant-for-the-9th-consecutiveyear/][AWS Named as a Leader in Gartner’s Infrastructure as a Service (IaaS) Magic Quadrant for the 9th Consecutive Year]]
+
+* Voltar
+[[https://github.com/atgmello/engenharia-dados-aceleracao#engenharia-de-dados][Sumário]]
