@@ -1,0 +1,116 @@
+#+TITLE: Explorando o poder do NoSQL com Cassandra e Hbase
+
+Por quê NoSQL em Big Data? Resposta: Performance.
+
+MapReduce processa dados em batch e os dados são acessados de forma sequencial. Ou seja, é preciso percorrer todo o dataset (scan search), mesmo para jobs mais simples.
+
+NoSQL possibilita acesso aleatório aos dados em termos de posição do registro e tempo.
+
+* CAP
+Teorema CAP: Consistência, Disponibilidade, Partição Tolerante a Falhas.
+
+* HBase
+banco de dados distribuído e orientado a coluna (Column Family ou Wide Column).
+
+É um Map:
+- Esparso
+- Distribuído
+- Persistente
+- Multidimensional
+- Ordenado
+
+Depende do Zookeeper para que consiga funcionar. O Zookeeper dá ao HBase visibilidade a todos os nós do cluster.
+
+** Desvantagem
+- Infelizmente não possui uma linguagem de busca (query)
+- Não suporta índices em colunas fora da rowkey
+- Não suporta tabelas secundárias de índices
+
+** Vantagem
+- Fácil integração ao ecossistema Hadoop
+
+* Estrutura
+- Map indexado por uma linha chave (row key), coluna chave (column key) e uma coluna timestamp.
+- Cada valor no Map é interpretado como um vetor de bytes (array of bytes)
+- Não distingue tipos (int, str, etc): pode armazenar qualquer tipo de dado, inclusive documentos (JSON, CSV, ...)
+
+{
+
+}
+
+* Arquitetura
+** Exemplos
+Criação de tabela
+#+BEGIN_SRC bash
+
+#+END_SRC
+
+Inserção de dados
+#+BEGIN_SRC bash
+
+#+END_SRC
+
+Versionamento
+#+BEGIN_SRC bash
+
+#+END_SRC
+
+Deleção
+#+BEGIN_SRC bash
+
+#+END_SRC
+
+Deleção em coluna versionada
+#+BEGIN_SRC bash
+
+#+END_SRC
+
+TTL
+#+BEGIN_SRC bash
+create 'ttl_exemplo', {'NAME'=>'cf', 'TTL'=>20}
+put 'ttl_exemplo', '1', 'cf:nome', 'Informacao'
+scan 'ttl_exemplo'
+#+END_SRC
+
+* Cassandra
+Banco de dados distribuído e orientado a coluna (Column Family ou Wide Column).
+
+Os dados aqui são tipados.
+
+Possui linguagem CQL (SQL-like), porém com algumas operações não suportadas/recomendadas (eg joins, alguns tipos de agrupamento e filto).
+
+Suporta tabela secundárias de índices e filtros em colunas fora da primary key.
+
+** Arquitetura
+Não possui ponto de falha central.
+
+Conexão entre nós é realizada de ponta a ponta, utilizando o protocolo Gossip para distribuição dos dados.
+
+Commit table -> memtable -> SSTable
+
+** TTL
+Registro temporário: colunas com propriedade TTL - Time To Live. Os registros são apagados depois desse período.
+
+* Cenários de uso
+- Arquitetura baseada em eventos
+    Kafka Cluster -> Spark Streaming -> HBase/Cassandra -> Enriquecimento -> Destino
+
+* Obs
+#+BEGIN_SRC bash
+sudo -u hdfs hadoop dfsadmin -safemode leave
+#+END_SRC
+
+Por que o safemode é ativado? Arquivos corrompidos.
+
+É importante parar todos os serviços do Hadoop antes de desligar a máquina.
+
+Como resolver: recuperar os arquivos (caso haja replicação) ou apagar.
+
+* Recursos
+https://github.com/pentguard/DIO-Aceleracao-4-HBase-Cassandra
+
+[[https://hbase.apache.org/book.html][Apache HBase - Getting Started]]
+
+[[https://cassandra.apache.org/doc/latest/getting_started/index.html][Apache Cassandra - Getting Started]]
+
+[[https://www.datastax.com/][datastax - Cassandra service]]

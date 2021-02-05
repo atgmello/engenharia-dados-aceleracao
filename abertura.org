@@ -1,0 +1,43 @@
+#+TITLE: Abertura - Como trabalhar em um ambiente ágil e global
+
+* Introdução
+Kick-off da Aceleração.  A live começou com a apresentação da [[https://www.everis.com/brazil/pt-br/home-br][Everis]], empresa de
+consultoria multinacional que estará ministrando as palestras técnicas sobre o
+assunto de Big Data. Entraram em detalhes sobre a filosofia e cultura da
+empresa, bem como ressaltaram que há oportunidades na área de Dados e que
+poderão ser oferecidas aos alunos de destaque do curso ao fim do treinamento.
+
+Esse curso contou com um total de 2000 candidaturas. Por volta de 400 foram
+selecionados após realizar uma prova eliminatória. A prova contou com questões
+de multipla escolha sobre Python e lógica de programação, além de um coding
+test.
+
+Serão 14 dias de treinamento passando pelas linguagens de programação Python e
+Scala além de ferramentas fundamentais para Big Data. Serão dadas noções do
+_core_ Hadoop com HDFS, Yarn, além de outras ferramentas do ecossistema como
+MapReduce, Sqoop, Hive, Zookeeper e Spark.  Também serão cobertas noções de
+bancos de dados NoSQL como Cassandra e HBase.
+
+* Agile
+Foi ressaltada a importância da mudança do paradigma Waterfall para o paradigma
+Agile em projetos de Engenharia de Dados.  Planejamento e execução de Sprints,
+Dailies, Reviews, organização em Squads autosuficientes, constante interação com
+o cliente, foco na entrega. Essas são algumas das características essenciais da
+cultura Agile e que contribuem para o sucesso de projetos utilizando esse
+framework.
+
+#+html: <p align="center"> <figure>
+#+html: <img src="figuras/BIG_AgileProcess-V2.png" />
+#+html: <figcaption>Framwork Agile. Créditos: <a href="https://bitsinglass.com/agile-methodologies-enhance-appian-delivery-part-1/">bitsinglass</a> </figcaption>
+#+html: </figure> </p>
+
+Agile requer um processo de comunicação forte, com transparência, confiânça e
+união entre os colaboradores das Squads. A colaboração é um aspecto fundamental
+para o sucesso no framework Agile.
+
+* Recursos
+[[https://agilemanifesto.org/][Manifesto Agile]]
+
+[[https://agilemanifesto.org/principles.html][Princípios Agile]]
+
+[[https://medium.com/@WeAreMobile1st/the-benefits-of-teamwork-and-collaboration-in-software-development-a843cb7e8f73][The Benefits of Teamwork and Collaboration in Software Development]]

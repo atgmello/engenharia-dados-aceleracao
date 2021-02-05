@@ -1,0 +1,73 @@
+#+TITLE: Orquestrando ambientes de big data distruibuidos com Zookeeper, Yarn e Sqoop
+
+* Zookeepr
+Serviço de coordenação distribuído.
+Fornece as rotas necessárias para as peças do cluster. Identifica nós por nomes (DSN-like).
+Ajuda as peças do ecossitemas Hadoop se achar na bagunça toda.
+Pode ajudar a evitar concorrência (write on read).
+Ajuda na recuperação de falhas.
+
+Para o desenvolvedor, o Zookeeper é completamente transparente.
+É mais aparente para quem vai trabalhar com infra.
+
+* Sqoop
+Movimenta dados entre banco de dados relacional e HDFS.  Realiza a leitura linha
+a linha de tabelas para arquivos (pode pecar na performance).  Permite importar
+dados e metadados de bancos de dado relacionais direto para o Hive.  Utiliza
+MapReduce por debaixo dos panos: processamento paralelo e tolerante a falha.
+Contudo MapReduce já não é mais o motor mais rápido disponível (alternativas:
+Spark, Flink).
+
+#+BEGIN_SRC bash
+sqoop import \
+    --connect jdbc: \
+    --username abc \
+    --password xyz \
+    --table some_table \
+    --where "column='something'"
+#+END_SRC
+
+* Desafio
+** SQL
+1. Todos os Pokémon lendários
+   #+BEGIN_SRC sql
+    SELECT *
+    FROM trainning.pokemon
+    WHERE legendary=TRUE;
+   #+END_SRC
+2. Todos os Pokémon de apenas um tipo
+   #+BEGIN_SRC sql
+    SELECT *
+    FROM trainning.pokemon
+    WHERE type2='';
+   #+END_SRC
+3. Os top 10 Pokémon mais rápidos
+   #+BEGIN_SRC sql
+    SELECT *
+    FROM trainning.pokemon
+    ORDER BY speed DESC
+    LIMIT 10;
+   #+END_SRC
+4. Os top 50 Pokémon com menos HP
+   #+BEGIN_SRC sql
+    SELECT *
+    FROM trainning.pokemon
+    ORDER BY hp ASC
+    LIMIT 50;
+   #+END_SRC
+5. Os top 100 Pokémon com maiores atributos
+   #+BEGIN_SRC sql
+    SELECT *
+    FROM trainning.pokemon
+    ORDER BY
+    greatest(hp, attack, defense, spatk, spdef, speed)
+    DESC
+    LIMIT 100;
+   #+END_SRC
+
+* Sqoop
+
+* Recursos
+http://dontpad.com/aceleracaoeveris
+
+https://drive.google.com/drive/folders/1xaft6H3R3_UvA6-BFHuCvHuWczf6xwqG?usp=sharing

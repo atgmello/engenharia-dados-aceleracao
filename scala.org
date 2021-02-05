@@ -1,0 +1,125 @@
+#+TITLE: Scala: o poder de uma linguagem multiparadigma
+
+* Sintaxe
+Recursos interessantes presentes na linguagem.
+
+*** val vs var
+#+BEGIN_SRC scala
+// Declaring values is done using either var or val.
+// val declarations are immutable, whereas vars are mutable. Immutability is
+// a good thing.
+val x = 10 // x is now 10
+x = 20     // error: reassignment to val
+var y = 10
+y = 20     // y is now 20
+#+END_SRC
+
+*** Pattern matching
+#+BEGIN_SRC scala
+def matchEverything(obj: Any): String = obj match {
+  // You can match values:
+  case "Hello world" => "Got the string Hello world"
+
+  // You can match by type:
+  case x: Double => "Got a Double: " + x
+
+  // You can specify conditions:
+  case x: Int if x > 10000 => "Got a pretty big number!"
+
+  // You can match case classes as before:
+  case Person(name, number) => s"Got contact info for $name!"
+
+  // You can match regular expressions:
+  case email(name, domain) => s"Got email address $name@$domain"
+
+  // You can match tuples:
+  case (a: Int, b: Double, c: String) => s"Got a tuple: $a, $b, $c"
+
+  // You can match data structures:
+  case List(1, b, c) => s"Got a list with three elements and starts with 1: 1, $b, $c"
+
+  // You can nest patterns:
+  case List(List((1, 2, "YAY"))) => "Got a list of list of tuple"
+
+  // Match any case (default) if all previous haven't matched
+  case _ => "Got unknown object"
+}
+#+END_SRC
+
+*** Iterando sobre iterables
+#+BEGIN_SRC scala
+// Certain collections (such as List) in Scala have a `foreach` method,
+// which takes as an argument a type returning Unit - that is, a void method
+val aListOfNumbers = List(1, 2, 3, 4, 10, 20, 100)
+aListOfNumbers foreach (x => println(x))
+aListOfNumbers foreach println
+#+END_SRC
+
+*** for comprehension
+#+BEGIN_SRC scala
+for { n <- s } yield sq(n)
+
+val nSquared2 = for { n <- s } yield sq(n)
+
+for { n <- nSquared2 if n < 10 } yield n
+
+for { n <- s; nSquared = n * n if nSquared < 10} yield nSquared
+
+/* NB Those were not for loops. The semantics of a for loop is 'repeat', whereas
+   a for-comprehension defines a relationship between two sets of data. */
+#+END_SRC
+
+*** map
+#+BEGIN_SRC scala
+val add10: Int => Int = _ + 10 // A function taking an Int and returning an Int
+List(1, 2, 3) map add10 // List(11, 12, 13) - add10 is applied to each element
+
+// Anonymous functions can be used instead of named functions:
+List(1, 2, 3) map (x => x + 10)
+
+// And the underscore symbol, can be used if there is just one argument to the
+// anonymous function. It gets bound as the variable
+List(1, 2, 3) map (_ + 10)
+#+END_SRC
+
+*** reduce
+#+BEGIN_SRC scala
+val listaReduceLeft = List[Int](5, 10, 15, 20)
+
+val listaReduced = listaReduceLeft.reduce((val1, val2) => val1 + val2)
+
+val listaOutraReduced = listaReduceLeft.reduce(_+_)
+#+END_SRC
+
+*** Tipos
+Scala é uma linguagem fortemente tipada.
+Porém não é necessário especificar os tipos das variáveis quando estiverem sendo criadas. O compilador consegue inferí-las.
+
+#+html: <p align="center"> <figure>
+#+html: <img src="figuras/scala_types.png" />
+#+html: <figcaption>Scala Types. Créditos: <a href="http://scalajp.github.io/scala.github.com/tutorials/tour/unified-types.html">scalajp</a> </figcaption>
+#+html: </figure> </p>
+
+* Criando pacotes
+- Maven
+
+#+BEGIN_QUOTE
+Apache Maven, ou Maven, é uma ferramenta de automação de compilação utilizada
+primariamente em projetos Java.
+#+END_QUOTE
+
+- Alternativas:
+  + SBT
+  + Gradle
+  + Ant
+
+* Recursos
+[[https://www.hammerlab.org/2017/04/06/scala-build-tools/][Building Scala Projects: Maven vs. SBT]]
+
+[[https://scalameta.org/metals/][Metals]]
+
+[[https://learnxinyminutes.com/docs/scala/][Learn X in Y minutes]]
+
+[[http://scalajp.github.io/scala.github.com/tutorials/tour/unified-types.html][Unified Types]]
+
+[[http://alvinalexander.com/scala][Alvin Alexander]]

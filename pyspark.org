@@ -1,0 +1,134 @@
+#+TITLE: PySpark: Criando pipelines de dados eficientes
+
+* Casos de uso
+- Operações de extração-transformação-carregamento (ETL)
+- Análise preditiva e aprendizado de máquina
+  - Reconhecimento de padrões
+  - Mecanismos de recomendação
+- Operações de acesso a dados (como consultas e visualização SQL)
+- Mineração e processamento de texto
+- Processamento de eventos em tempo real
+- Análises de grafos
+
+* Arquitetura
+*** Driver
+O Driver é responsável por criar o SparkContext, também referico como sc. É instanciado no início de um aplicativo Spark (e shells) e é usado durante todo o programa.
+
+*** Cluster Manager
+resource_manager:8088
+
+*** Spark Master
+
+* Uso
+#+BEGIN_SRC bash
+spark submit \
+    --master yarn \
+    --queue "SquadFi" \
+    --name "Program Name" \
+    --driver-memory 2G \
+    --executor-memory 2G \
+    --executor-cores 1 \
+    --proxy-user hive \
+    --conf "spark.driver.maxResultSize=16g" \
+    --conf "spark.dynamicAllocation.enabled=true" \
+    --conf "spark.shuffle.service.enabled=true" \
+    --conf "spark.shuffle.service.port=7337" \
+    --conf "spark.dynamicAllocation.initialExecutors=10" \
+    --conf "spark.dynamicAllocation.minExecutors=10" \
+    --conf "spark.dynamicAllocation.maxExecutors=10" \
+    --conf "spark.yarn.driver.memoryOverhead=2000" \
+    --conf "spark.yarn.executor.memoryOverhead=2000" \
+    --driver-java-options "-Djavax.security.auth.useSubjectCredsOnly=false" \
+    Main.py <param1> <param2> <...> <paramN>
+#+END_SRC
+
+*** Context
+**** HiveContext
+#+BEGIN_SRC python
+from pyspark import SparkContext, HiveContext
+sc = SparkContext(appName = "test")
+sqlContext = HiveContext(sc)
+sqlContext.sql("select * from SomeTable limit 10")
+#+END_SRC
+
+**** StreamContext
+#+BEGIN_SRC python
+from pyspark.streaming import StreamingContext
+
+ssc = StreamingContext(sc, 1)
+lines = ssc.socketTextStream('localhost', 9999)
+counts = lines.flatMap(lambda line: line.split(" ")).map(lambda word: (word, 1)).reduceByKey(lambda a, b: a+b)
+counts.pprint()
+ssc.start()
+ssc.awaitTermination()
+#+END_SRC
+
+***** Caso de Uso
+Exemplo:
+#+html: <p align="center"> <figure>
+#+html: <img src="figuras/apache_spark_streaming.png" />
+#+html: <figcaption>Arquitetura do Apache Spark. Créditos: <a href="https://databricks.com/glossary/what-is-spark-streaming">Documentação</a></figcaption>
+#+html: </figure> </p>
+
+* Distribuições
+*** On Premisses
+**** Cloudera
+[[https://www.cloudera.com/][Cloudera]]
+*** Cloud
+**** AWS
+- EMR
+  - Managed Hadoop Framework (Hive, Zookeeper, Sqoop, Oozie, Tez, Hue, Phoenix, Spark, Presto, ...)
+  - Forma simples e automatizada de subir cluster com ecossistema Hadoop
+    - Evita o trabalho de subir diversas máquinas EC2, configurar rede, configurar cada uma das máquinas e os diversos aplicativos...
+- AWS Glue DataBrew
+  - Visual data preparation tool to clean and normalize data for analytics and machine learning
+  - É um Spark visual e serverless
+
+**** Databricks
+[[https://community.cloud.databricks.com/login.html][Databricks Community]]
+
+* Pitfalls
+- Particionamento dos dados no HDFS
+  - Inserir arquivos muito pequenos acaba desperdiçando espaço: o HDFS possui um tamanho fixo para cada bloco, independente do tamanho do arquivo
+  - Dados divididos em muitods pedaços impactam negativamente na velocidade da recuperação de dados
+* Boas práticas
+*** Camadas
+- Raw Zone
+  Todo dado recebido pelos sistemas origens classificamos como Raw Zone.
+
+  Em geral, todo o dado chega em formato String, o mais tipo mais flexível e genérico de todos. Assim garantimos que o dado seja armazenado AS-IS.
+
+- Trusted Zone
+  Na camada Trusted realizamos ingestões mais direcionadas a regras de negócio.
+
+  Aqui são realizados cruzamentos de tabelas Raw, bem como Cast dos dados para os tipos ideais, além da aplicação de regras de negócio.
+
+- Refined Zone
+  Na última camada, Refined, criamos visões para relatórios.
+
+  Aqui aparecem apenas as colunas necessárias para as visões esperadas.
+
+* Tipos de armazenamento
+- Avro
+- Parquet
+- ORC
+
+#+html: <p align="center"> <figure>
+#+html: <img src="figuras/file_formats.png" />
+#+html: <figcaption>Tipos de formatos de dados para Big Data. Créditos: <a href="https://www.datanami.com/2018/05/16/big-data-file-formats-demystified/">Datanami</a></figcaption>
+#+html: </figure> </p>
+
+* Recursos
+[[https://docs.cloudera.com/runtime/7.2.1/spark-overview/topics/spark-overview.html][Spark Overview for Data Science]]
+
+[[https://www.oreilly.com/library/view/spark-the-definitive/9781491912201/][Spark: The Definitive Guide]]
+
+[[https://academy.databricks.com/exam/databricks-certified-associate-developer][Databricks Certified Associate Developer for Apache Spark 3.0]]
+
+[[https://www.cloudera.com/about/training/certification/cca-spark.html][CCA Spark and Hadoop Developer Exam (CCA175)]]
+
+[[https://www.cloudera.com/about/training/certification/ccp-data-engineer.html][CCP Data Engineer Exam (DE575)]]
+
+[[https://www.kaggle.com/gpreda/covid-world-vaccination-progress][Covid World Vaccination Dataset (Kaggle)]]
+
+[[https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/5191291087587071/3239850342304675/2520349622255950/latest.html][Notebook]]

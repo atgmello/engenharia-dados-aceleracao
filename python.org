@@ -1,0 +1,14 @@
+#+TITLE: Intensivo de Python: O mínimo que você precisa saber
+
+Aula hands-on
+
+Ver notebooks:
+
+- Sintaxe
+https://github.com/huguinho-alves/python_aceleracao_everys/blob/main/everis_aceleracao.ipynb
+
+- Pandas
+https://github.com/huguinho-alves/python_aceleracao_everys/blob/main/Pandas.ipynb
+
+* Recursos
+[[https://learnxinyminutes.com/docs/python/][Learn Python in Y Minutes]]

@@ -1,0 +1,29 @@
+#+TITLE: Monitoramento de clusters Hadoop de alto nível com HDFS e Yarn
+
+* Sistemas distribuídos
+Clusters de computadores hoje em dia são uma alternativa aos antigos mainframes.
+Enquanto mainframes conseguem oferecer escalabilidade vertical, cluters
+conseguem oferecer escalabilidade horizontal. Isso é, para conseguir mais
+recursos de armazenamento e computação para os mainframes você precisa
+
+Nesse contexto, demos início ao estudo do Hadoop, uma tecnologia desenvolvida
+utilizando princípios de sistemas distribuídos e que, portanto, se encaixam
+nessa nova realidade dos clusters. Passamos por uma descrição alto nível do que
+acontece por debaixo dos panos quando nós, desenvolvedores, interagimos com o
+HDFS e Yarn.
+
+* Hadoop
+Essas duas tecnologias são as peças fundamentais que sustentam o ecossistema
+Hadoop. Os nomes HDFS e Yarn podem parecer uma sopa de letrinhas sem muito
+sentido para quem os vê fora de contexto. Mas note que ambos na verdade são
+siglas bastante descritivas do que essas tecnologias se propõem a fazer.
+
+O HDFS, ou Hadoop Distributed File System, fica encarregado de distribuir e
+gerenciar os seus arquivos entre as máquinas do seu cluster. Já o Yarn, Yet
+Another Resource Negotiator, é responsável por negociar recrusos computacionais
+para as suas tarefas de manipulação de dados.
+
+#+html: <figure align="center">
+#+html: <img src="figuras/hadoop_eco.png" />
+#+html: <figcaption>Ecossistema Hadoop. Créditos: <a href="https://dzone.com/articles/example-of-etl-application-using-apache-spark-and">dzone</a> </figcaption>
+#+html: </figure>

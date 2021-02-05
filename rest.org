@@ -1,0 +1,8 @@
+#+TITLE: O que você precisa saber para construir APIs verdadeiramente restfull
+
+Aula hands-on.
+
+Ver notebook: https://github.com/huguinho-alves/python_aceleracao_everys/blob/main/Criando_um_Rest_Service.ipynb
+
+* Recursos
+[[https://www.redhat.com/pt-br/topics/api/what-is-a-rest-api][O que é API REST?]]
