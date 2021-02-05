@@ -11,22 +11,24 @@ Você pode acessar minhas anotações para cada live através dos links abaixo.
 
 Comentários, correções e contribuições são sempre bem-vindas!
 
-1. [[#abertura---como-trabalhar-em-um-ambiente-%C3%A1gil-e-global][Abertura - Como trabalhar em um ambiente ágil e global]]
+1. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/abertura.org][Abertura - Como trabalhar em um ambiente ágil e global]]
 
-2. [[#monitoramento-de-clusters-hadoop-de-alto-n%C3%ADvel-com-hdfs-e-yarn][Monitoramento de clusters Hadoop de alto nível com HDFS e Yarn]]
+2. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/hadoop.org][Monitoramento de clusters Hadoop de alto nível com HDFS e Yarn]]
 
-3. [[#orquestrando-ambientes-de-big-data-distruibuidos-com-zookeeper-yarn-e-sqoop][Orquestrando ambientes de big data distruibuidos com Zookeeper, Yarn e Sqoop]]
+3. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/ecossistema_hadoop.org][Orquestrando ambientes de big data distruibuidos com Zookeeper, Yarn e Sqoop]]
 
-4. [[#como-realizar-consultas-de-maneira-simples-no-ambiente-complexo-de-big-data-com-hive-e-impala][Como realizar consultas de maneira simples no ambiente complexo de Big Data com HIVE e Impala]]
+4. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/hive.org][Como realizar consultas de maneira simples no ambiente complexo de Big Data com HIVE e Impala]]
 
-5. [[#trabalhando-com-servi%C3%A7os-de-mensageria-real-time-com-python-e-kafka-na-pr%C3%A1tica][Trabalhando com serviços de mensageria real time com Python e Kafka na prática]]
+5. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/kafka.org][Trabalhando com serviços de mensageria real time com Python e Kafka na prática]]
 
-6. [[#processando-grandes-conjuntos-de-dados-de-forma-paralela-e-distribu%C3%ADda-com-spark][Processando grandes conjuntos de dados de forma paralela e distribuída com Spark]]
+6. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/spark.org][Processando grandes conjuntos de dados de forma paralela e distribuída com Spark]]
 
-7. [[#pyspark-criando-pipelines-de-dados-eficientes][PySpark: Criando pipelines de dados eficientes]]
+7. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/pyspark.org][PySpark: Criando pipelines de dados eficientes]]
 
-8. [[#orquestrando-big-data-em-ambiente-de-nuvem][Orquestrando Big Data em Ambiente de Nuvem]]
+8. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/cloud.org][Orquestrando Big Data em Ambiente de Nuvem]]
 
-9.
+9. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/abertura.org][Bla]]
 
-10.
+10. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/abertura.org][Bla]]
+
+11. [[https://github.com/atgmello/engenharia-dados-aceleracao/blob/main/abertura.org][Bla]]
