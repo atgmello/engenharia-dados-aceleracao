@@ -1,16 +1,50 @@
 #+TITLE: Explorando o poder do NoSQL com Cassandra e Hbase
 
-Por quê NoSQL em Big Data? Resposta: Performance.
+Por quê NoSQL em Big Data?
+
+Resposta: Performance.
 
 MapReduce processa dados em batch e os dados são acessados de forma sequencial. Ou seja, é preciso percorrer todo o dataset (scan search), mesmo para jobs mais simples.
 
 NoSQL possibilita acesso aleatório aos dados em termos de posição do registro e tempo.
 
+* Cenários de uso
+- Arquitetura baseada em eventos
+  + Kafka Cluster -> Spark Streaming -> HBase/Cassandra -> Enriquecimento -> Destino
+
 * CAP
 Teorema CAP: Consistência, Disponibilidade, Partição Tolerante a Falhas.
 
+Ou (C)onsistency, (A)vailability, (P)artition tolerance.
+
+#+BEGIN_QUOTE
+The CAP theorem states that any networked shared-data system can have at most two of three desirable properties:
+
+- consistency (C) equivalent to having a single up-to-date copy of the data;
+- high availability (A) of that data (for updates); and
+- tolerance to network partitions (P).
+
+This expression of CAP served its purpose, which was to open the minds of designers to a wider range of systems and tradeoffs; indeed, in the past decade, a vast range of new systems has emerged, as well as much debate on the relative merits of consistency and availability. The "2 of 3" formulation was always misleading because it tended to oversimplify the tensions among properties. Now such nuances matter.
+#+END_QUOTE
+Créditos: [[https://www.infoq.com/articles/cap-twelve-years-later-how-the-rules-have-changed/][CAP Twelve Years Later: How the "Rules" Have Changed]]
+
+#+html: <p align="center"> <figure>
+#+html: <img src="figuras/cap_simple.png" />
+#+html: <figcaption>Teorema CAP na prática. Créditos: <a href="https://developer.ibm.com/tutorials/ba-set-up-apache-cassandra-architecture/">IBM</a> </figcaption>
+#+html: </figure> </p>
+
+#+html: <p align="center"> <figure>
+#+html: <img src="figuras/cap_databases.png" />
+#+html: <figcaption>Teorema CAP e a classificação de diferentes bancos. Créditos: <a href="https://www.researchgate.net/figure/Database-Systems-according-to-the-CAP-Theorem_fig1_334554423">Samaraweera@researchgate</a> </figcaption>
+#+html: </figure> </p>
+
 * HBase
-banco de dados distribuído e orientado a coluna (Column Family ou Wide Column).
+#+BEGIN_QUOTE
+Use Apache HBase™ when you need random, realtime read/write access to your Big Data. This project's goal is the hosting of very large tables -- billions of rows X millions of columns -- atop clusters of commodity hardware.
+#+END_QUOTE
+Créditos: [[https://hbase.apache.org/][Apache HBase]]
+
+Banco de dados distribuído e orientado a coluna (Column Family ou Wide Column).
 
 É um Map:
 - Esparso
@@ -19,7 +53,16 @@ banco de dados distribuído e orientado a coluna (Column Family ou Wide Column).
 - Multidimensional
 - Ordenado
 
-Depende do Zookeeper para que consiga funcionar. O Zookeeper dá ao HBase visibilidade a todos os nós do cluster.
+** Arquitetura
+
+Depende do Zookeeper para que consiga funcionar. O Zookeeper dá ao HBase
+visibilidade a todos os nós do cluster.
+
+
+#+html: <p align="center"> <figure>
+#+html: <img src="figuras/hbase_architecture.png" />
+#+html: <figcaption>Arquitetura do HBase. Créditos: <a href="https://data-flair.training/blogs/hbase-architecture/">dataflair</a> </figcaption>
+#+html: </figure> </p>
 
 ** Desvantagem
 - Infelizmente não possui uma linguagem de busca (query)
@@ -29,89 +72,80 @@ Depende do Zookeeper para que consiga funcionar. O Zookeeper dá ao HBase visibi
 ** Vantagem
 - Fácil integração ao ecossistema Hadoop
 
-* Estrutura
+** Estrutura dos dados
 - Map indexado por uma linha chave (row key), coluna chave (column key) e uma coluna timestamp.
 - Cada valor no Map é interpretado como um vetor de bytes (array of bytes)
 - Não distingue tipos (int, str, etc): pode armazenar qualquer tipo de dado, inclusive documentos (JSON, CSV, ...)
 
-{
-
-}
-
-* Arquitetura
-** Exemplos
-Criação de tabela
-#+BEGIN_SRC bash
-
-#+END_SRC
-
-Inserção de dados
-#+BEGIN_SRC bash
-
-#+END_SRC
-
-Versionamento
-#+BEGIN_SRC bash
-
-#+END_SRC
-
-Deleção
-#+BEGIN_SRC bash
-
-#+END_SRC
-
-Deleção em coluna versionada
-#+BEGIN_SRC bash
-
-#+END_SRC
-
-TTL
-#+BEGIN_SRC bash
-create 'ttl_exemplo', {'NAME'=>'cf', 'TTL'=>20}
-put 'ttl_exemplo', '1', 'cf:nome', 'Informacao'
-scan 'ttl_exemplo'
-#+END_SRC
+#+html: <p align="center"> <figure>
+#+html: <img src="figuras/hbase_data.png" />
+#+html: <figcaption>Exemplo de dados na estrutura do HBase. Créditos: <a href="https://www.scnsoft.com/blog/cassandra-vs-hbase">ScienceSoft</a> </figcaption>
+#+html: </figure> </p>
 
 * Cassandra
+#+BEGIN_QUOTE
+The Apache Cassandra database is the right choice when you need scalability and high availability without compromising performance. Linear scalability and proven fault-tolerance on commodity hardware or cloud infrastructure make it the perfect platform for mission-critical data.
+#+END_QUOTE
+Créditos: [[https://cassandra.apache.org/][Apache Cassandra]]
+
 Banco de dados distribuído e orientado a coluna (Column Family ou Wide Column).
 
-Os dados aqui são tipados.
+O Cassandra possui a linguagem CQL, bastante similar ao SQL porém com algumas operações não suportadas/recomendadas (e.g. joins, alguns tipos de agrupamento e filto).
 
-Possui linguagem CQL (SQL-like), porém com algumas operações não suportadas/recomendadas (eg joins, alguns tipos de agrupamento e filto).
+Os dados aqui são tipados.
 
 Suporta tabela secundárias de índices e filtros em colunas fora da primary key.
 
 ** Arquitetura
 Não possui ponto de falha central.
 
+#+html: <p align="center"> <figure>
+#+html: <img src="figuras/cassandra_write.png" />
+#+html: <figcaption>Fluxo de escrita de dados no Cassandra. Créditos: <a href="https://blog.knoldus.com/commit-log-a-commitment-that-cassandra-provides/">knoldus</a> </figcaption>
+#+html: </figure> </p>
+
 Conexão entre nós é realizada de ponta a ponta, utilizando o protocolo Gossip para distribuição dos dados.
 
-Commit table -> memtable -> SSTable
+#+html: <p align="center"> <figure>
+#+html: <img src="figuras/cassandra_cluster.webp" />
+#+html: <figcaption>Arquitetura do Cassandra. Créditos: <a href="https://www.scylladb.com/resources/introduction-to-apache-cassandra/">Scylla</a> </figcaption>
+#+html: </figure> </p>
 
-** TTL
+** Estrutura dos dados
+
+#+html: <p align="center"> <figure>
+#+html: <img src="figuras/cassandra_data.png" />
+#+html: <figcaption>Exemplo de dados na estrutura do Cassandra. Créditos: <a href="https://www.scnsoft.com/blog/cassandra-vs-hbase">ScienceSoft</a> </figcaption>
+#+html: </figure> </p>
+
+*** TTL
 Registro temporário: colunas com propriedade TTL - Time To Live. Os registros são apagados depois desse período.
 
-* Cenários de uso
-- Arquitetura baseada em eventos
-    Kafka Cluster -> Spark Streaming -> HBase/Cassandra -> Enriquecimento -> Destino
-
-* Obs
-#+BEGIN_SRC bash
-sudo -u hdfs hadoop dfsadmin -safemode leave
-#+END_SRC
-
-Por que o safemode é ativado? Arquivos corrompidos.
-
-É importante parar todos os serviços do Hadoop antes de desligar a máquina.
-
-Como resolver: recuperar os arquivos (caso haja replicação) ou apagar.
-
 * Recursos
-https://github.com/pentguard/DIO-Aceleracao-4-HBase-Cassandra
+
+[[https://github.com/pentguard/DIO-Aceleracao-4-HBase-Cassandra][Repositório da aula]]
+
+[[https://www.infoq.com/articles/cap-twelve-years-later-how-the-rules-have-changed/][CAP Twelve Years Later: How the "Rules" Have Changed]]
+
+[[https://hbase.apache.org/][Apache HBase]]
 
 [[https://hbase.apache.org/book.html][Apache HBase - Getting Started]]
 
+[[https://data-flair.training/blogs/hbase-architecture/][HBase Architecture – Regions, Hmaster, Zookeeper]]
+
+[[https://data-flair.training/blogs/hbase-shell-commands/][HBase Shell Commands]]
+
+[[https://cassandra.apache.org/][Apache Cassandra]]
+
+[[https://developer.ibm.com/tutorials/ba-set-up-apache-cassandra-architecture/][Apache Cassandra Architecture]]
+
 [[https://cassandra.apache.org/doc/latest/getting_started/index.html][Apache Cassandra - Getting Started]]
+
+[[https://www.scnsoft.com/blog/cassandra-vs-hbase][Cassandra vs. HBase: twins or just strangers with similar looks?]]
+
+[[https://blog.knoldus.com/commit-log-a-commitment-that-cassandra-provides/][Commit Log: A commitment that Cassandra provides]]
+
+[[https://www.scylladb.com/resources/introduction-to-apache-cassandra/][What is Apache Cassandra?]]
 
 [[https://www.datastax.com/][datastax - Cassandra service]]
 
