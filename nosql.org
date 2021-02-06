@@ -15,8 +15,6 @@ NoSQL possibilita acesso aleatório aos dados em termos de posição do registro
 * CAP
 Teorema CAP: Consistência, Disponibilidade, Partição Tolerante a Falhas.
 
-Ou (C)onsistency, (A)vailability, (P)artition tolerance.
-
 #+BEGIN_QUOTE
 The CAP theorem states that any networked shared-data system can have at most two of three desirable properties:
 
@@ -57,7 +55,6 @@ Banco de dados distribuído e orientado a coluna (Column Family ou Wide Column).
 
 Depende do Zookeeper para que consiga funcionar. O Zookeeper dá ao HBase
 visibilidade a todos os nós do cluster.
-
 
 #+html: <p align="center"> <figure>
 #+html: <img src="figuras/hbase_architecture.png" />
@@ -118,10 +115,8 @@ Conexão entre nós é realizada de ponta a ponta, utilizando o protocolo Gossip
 #+html: <figcaption>Exemplo de dados na estrutura do Cassandra. Créditos: <a href="https://www.scnsoft.com/blog/cassandra-vs-hbase">ScienceSoft</a> </figcaption>
 #+html: </figure> </p>
 
-*** TTL
-Registro temporário: colunas com propriedade TTL - Time To Live. Os registros são apagados depois desse período.
-
 * Recursos
+[[https://drive.google.com/file/d/1nfzVpbwwB8d99RY8BEvjaQJ-vYx6o56X/view?usp=sharing][Slides da aula]]
 
 [[https://github.com/pentguard/DIO-Aceleracao-4-HBase-Cassandra][Repositório da aula]]
 
