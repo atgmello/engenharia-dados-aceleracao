@@ -14,7 +14,7 @@ MapReduce, com linguagem similar ao conhecido SQL.
 Geralmente utiliza-se Hive em esteiras de processamento de dados em batch.
 
 #+html: <p align="center"> <figure>
-#+html: <img src="figuras/hive_architecture.png" />
+#+html: <img src="figuras/hive_architecture.jpg" />
 #+html: <figcaption>Arquitetura do Hive. Créditos: <a href="https://data-flair.training/blogs/apache-hive-architecture/">dataflair</a> </figcaption>
 #+html: </figure> </p>
 
