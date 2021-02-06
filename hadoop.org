@@ -1,14 +1,16 @@
 #+TITLE: Monitoramento de clusters Hadoop de alto nível com HDFS e Yarn
 
 * Sistemas distribuídos
-Clusters de computadores hoje em dia são uma alternativa aos antigos mainframes.
+Clusters de computadores são hoje uma alternativa viável aos antigos mainframes.
 Enquanto mainframes conseguem oferecer escalabilidade vertical, cluters
-conseguem oferecer escalabilidade horizontal. Isso é, para conseguir mais
-recursos de armazenamento e computação para os mainframes você precisa comprar
-um novo e mais poderoso (e mais caro). Para conseguir mais armazenamento e
-computação em sistemas distribuídos, basta adicionar mais máquinas (comuns) ao
-cluster. Essa é a principal diferença entre escalabilidade vertical e escalabilidade
-horizontal.
+conseguem oferecer escalabilidade horizontal. Isso quer dizer que para conseguir
+mais recursos de armazenamento e computação para os mainframes, você precisa
+adquirir mais componentes (RAM, CPU, etc.) para essa máquina ou então, caso ela
+já tenha chegado ao seu limite de expsão, será necessário comprar uma máquina
+nova e mais poderosa (e certamente mais cara) que a atual.  Para conseguir mais
+armazenamento e computação em sistemas distribuídos, basta adicionar mais
+máquinas (comuns) ao cluster. Essa é a principal diferença entre escalabilidade
+vertical e escalabilidade horizontal.
 
 #+html: <p align="center"> <figure>
 #+html: <img src="figuras/scaling.png" />
