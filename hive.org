@@ -3,36 +3,47 @@
 Hive e Impala são frontends que possibilitam um a conexão facilitada aos dados no HDFS.
 
 * Hive
-Hive oferece a linguagem HQL (Hive Query Langue), uma abstração de alto nível ao MapReduce, com linguagem similar ao conhecido SQL.
+#+BEGIN_QUOTE
+The Apache Hive ™ data warehouse software facilitates reading, writing, and managing large datasets residing in distributed storage using SQL. Structure can be projected onto data already in storage.
+#+END_QUOTE
+Créditos: https://hive.apache.org/
 
-Três possíveis engines MapReduce, Spark, Tez.
+Hive oferece a linguagem HQL (Hive Query Langue), uma abstração de alto nível ao
+MapReduce, com linguagem similar ao conhecido SQL.
 
-* Impala
-Engine MPP (Massive Parallel Processing). Também uma linguagem similar a SQL (Impala SQL).
+Geralmente utiliza-se Hive em esteiras de processamento de dados em batch.
 
-Impala não salva os resultados intermediários em disco. Isso acelera e muito o
-processamento em comparação com o Hive.
+#+html: <p align="center"> <figure>
+#+html: <img src="figuras/hive_architecture.png" />
+#+html: <figcaption>Arquitetura do Hive. Créditos: <a href="https://data-flair.training/blogs/apache-hive-architecture/">dataflair</a> </figcaption>
+#+html: </figure> </p>
 
-Uma consequência negativa desse fato, é que o consumo de memória do Impala é
-muito maior, o que pode ser um limitante dependendo do tipo de queries
-executadas.
+** Particionamento
+Conceito importante. Determina como os dados são armazenados.
 
-* Casos de uso
-- Realtime -> Impala
-- Batch -> Hive
-
-
-* Detalhes HQL
-CREATE EXTERNAL vs MANAGED TABLE
-
-- External - Quando a tablea é apagada, os dados permanecem
-- Managed - Apaga os dados quando a tabela é deletada
-
-* Particionamento
-Determina como os dados são armazenados.
-
+Cuidado com os pitfalls:
 - Pouco particionamento: não faz bom uso da capacidade de paralelismo dos dados
 - Muito particionamento: pode sobrecarregar o namenode, impactando na performance
+
+Ver [[https://blog.cloudera.com/improving-query-performance-using-partitioning-in-apache-hive/][Improving Query Performance Using Partitioning in Apache Hive]].
+
+* Impala
+#+BEGIN_QUOTE
+Apache Impala is the open source, native analytic database
+for Apache Hadoop.
+#+END_QUOTE
+Créditos: https://impala.apache.org/
+
+Assim como o Hive, Impala ambém possui uma linguagem similar a SQL (Impala SQL) para acesso aos dados no HDFS.
+
+A diferença é que o Impala não salva os resultados intermediários em disco. Isso
+acelera e muito o processamento em comparação com o Hive.
+
+Uma consequência negativa desse fato é que o consumo de memória dessa ferramenta
+é muito maior. Isso pode ser um limitante dependendo do tipo de queries
+executadas.
+
+Por conta disso, Impala é comumente utilizado em pipelines de dados real-time.
 
 * Prática
 ** Hive
@@ -146,9 +157,21 @@ FROM table1 t1, table2 t2, table3 t3
 WHERE t1.id = t2.id AND t2.id = t3.id AND t1.zipcode = '02535';
 #+END_SRC
 
+*** Detalhes HQL
+CREATE EXTERNAL vs MANAGED TABLE
+
+- External - Quando a tablea é apagada, os dados permanecem
+- Managed - Apaga os dados quando a tabela é deletada
 
 ** Dia-a-dia
-/home/cloudera/hive/script.sh
+O uso do Hive/Impala no cotidiano de um engenheiro de dados é exemplificado a seguir.
+
+Em geral, essas ferramentas são utilizadas diretamente através da linha de comando ou então em scripts que orquestram consultas complexas.
+
+#+BEGIN_SRC sql
+LOAD DATA LOCAL INPATH '${hiveconf:path_file}' INTO TABLE ${hiveconf:table} PARTITION(dt_processamento='${hiveconf:dt_processamento}');
+#+END_SRC
+
 #+BEGIN_SRC shell
 #!/bin/bash
 
@@ -172,15 +195,18 @@ impala-shell -q 'INVALIDATE METADATA beca.ext_p_employee;'
 fi
 #+END_SRC
 
-/home/cloudera/hive/load.hql
-#+BEGIN_SRC shell
-LOAD DATA LOCAL INPATH '${hiveconf:path_file}' INTO TABLE ${hiveconf:table} PARTITION(dt_processamento='${hiveconf:dt_processamento}');
-#+END_SRC
-
 * Recursos
+[[https://drive.google.com/file/d/1duwf7g9lfAsIOJWRL26tx8RBfV8ySPon/view?usp=sharing][Slides da aula]]
+
+[[https://gitlab.com/vmb1/hive][Repositório da aula]]
+
+[[https://data-flair.training/blogs/apache-hive-architecture/][Hive Architecture]]
+
 [[https://cwiki.apache.org/confluence/display/Hive/LanguageManual+Joins][Hive Language Manual - Joins]]
 
-https://gitlab.com/vmb1/hive
+[[https://blog.cloudera.com/improving-query-performance-using-partitioning-in-apache-hive/][Improving Query Performance Using Partitioning in Apache Hive]]
+
+[[https://impala.apache.org/][Apache Impala]]
 
 * Voltar
 [[https://github.com/atgmello/engenharia-dados-aceleracao#engenharia-de-dados][Sumário]]
