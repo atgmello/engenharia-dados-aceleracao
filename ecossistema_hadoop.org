@@ -1,14 +1,16 @@
 #+TITLE: Orquestrando ambientes de big data distruibuidos com Zookeeper, Yarn e Sqoop
 
 * Zookeepr
-Serviço de coordenação distribuído.
-Fornece as rotas necessárias para as peças do cluster. Identifica nós por nomes (DSN-like).
-Ajuda as peças do ecossitemas Hadoop se achar na bagunça toda.
-Pode ajudar a evitar concorrência (write on read).
-Ajuda na recuperação de falhas.
+O Zookeeper é um serviço de coordenação distribuído.
+
+- Fornece as rotas necessárias para as peças do cluster.
+- Identifica nós por nomes (DSN-like).
+- Ajuda as peças do ecossitemas Hadoop se achar na bagunça toda.
+- Pode ajudar a evitar concorrência (write on read).
+- Ajuda na recuperação de falhas.
 
 Para o desenvolvedor, o Zookeeper é completamente transparente.
-É mais aparente para quem vai trabalhar com infra.
+Essa tecnologia é mais aparente para aqueles que trabalham com a parte da infraestrutura.
 
 #+html: <p align="center"> <figure>
 #+html: <img src="figuras/zookeeper.jpg" />
@@ -16,11 +18,12 @@ Para o desenvolvedor, o Zookeeper é completamente transparente.
 #+html: </figure> </p>
 
 * Sqoop
-Movimenta dados entre banco de dados relacional e HDFS.  Realiza a leitura linha
-a linha de tabelas para arquivos (pode pecar na performance).  Permite importar
-dados e metadados de bancos de dado relacionais direto para o Hive.  Utiliza
-MapReduce por debaixo dos panos: processamento paralelo e tolerante a falha.
-Contudo MapReduce já não é mais o motor mais rápido disponível (alternativas:
+O Sqoop é uma ferramenta que permite mover dados de maneira facilitada entre banco de dados relacionais e o HDFS.
+
+- Realiza a leitura linha a linha de tabelas para arquivos (pode pecar na performance).
+- Permite importar dados e metadados de bancos de dado relacionais direto para o Hive.
+- Utiliza MapReduce por debaixo dos panos: processamento paralelo e tolerante a falha.
+  + Contudo MapReduce já não é mais o motor mais rápido disponível (alternativas:
 Spark, Flink).
 
 ** Exemplo
